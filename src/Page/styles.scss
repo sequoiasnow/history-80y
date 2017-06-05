@@ -1,0 +1,32 @@
+$page--padding: 8vw;
+
+.page {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  transition: all 0.5s linear;
+  overflow: hidden;
+  position: relative;
+
+  &--selected {
+    border-radius: $page--padding;
+  }
+}
+
+.page__title {
+  position: absolute;
+  bottom: $page--padding;
+  left: $page--padding;
+  font-size: 5em;
+}
+
+.page__content {
+  position: absolute;
+  top: $page--padding;
+  right: $page--padding;
+}
+
+.page__icon {
+  left: $page--padding;
+  top: $page--padding;
+}
