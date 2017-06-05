@@ -4,7 +4,7 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "build": "webpack --config ./dev/webpack.config.js",
+    "build": "RELEASE=true webpack --config ./dev/webpack.config.js",
     "start": "webpack-dev-server --config ./dev/webpack.config.js --watch"
   },
   "keywords": [],

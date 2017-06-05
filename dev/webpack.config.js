@@ -4,8 +4,9 @@ const Visualizer = require('webpack-visualizer-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 
-const isDebug   = ! process.argv.includes('--release');
-const isVerbose = process.argv.includes('--verbose');
+const isDebug   = ! process.env.hasOwnProperty('RELEASE')
+if ( ! isDebug ) console.log('This is not debug')
+const isVerbose = process.argv.includes('--verbose')
 
 const SRC_DIR = path.resolve(__dirname, '../src')
 const DIST_DIR = path.resolve(__dirname, '../dist')
