@@ -19,18 +19,18 @@ const config = {
   /**
    * Where the application is going to have a root component.
    */
-  entry: [
+  entry: isDebug ? [
     'webpack-dev-server/client?http://0.0.0.0:8888', // WebpackDevServer host and port
     'webpack/hot/only-dev-server', // "only" prevents reload on syntax errors
     'react-hot-loader/patch',
     path.resolve(SRC_DIR, './index.tsx')
-  ],
+  ] : path.resolve(SRC_DIR, './index.tsx'),
   
   /**
    * Where and what name is given to the resulting file when compiled.
    */
   output: {
-    path: DIST_DIR,
+    path: isDebug ? DIST_DIR : path.resolve(__dirname, '..'), 
     filename: 'the.js',
     publicPath: '/static' 
   },
