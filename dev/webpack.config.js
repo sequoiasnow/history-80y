@@ -33,7 +33,7 @@ const config = {
   output: {
     path: isDebug ? DIST_DIR : path.resolve(__dirname, '..'), 
     filename: 'the.js',
-    publicPath: '/static' 
+    publicPath: isDebug ? '/static' : ''
   },
 
   /**
