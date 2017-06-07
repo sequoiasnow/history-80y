@@ -13,12 +13,17 @@ import './styles.scss'
  */
 const aspect = 0.6180339887;
 
+interface SpiralPane {
+  color?: string, 
+  content: React.SFC<{}>
+}
+
 /**
  * The Spiral contains a series of pages it will
  * show in spiral manner.
  */
 export interface SpiralProps {
-  pages: PageProps[]
+  pages: SpiralPane[]
 }
 
 interface SpiralState {
@@ -42,9 +47,9 @@ export class Spiral extends React.Component<SpiralProps, SpiralState> {
   componentDidMount() {
     $(window).mousewheel(this._onWheel)
     $(window).on('scroll', () => false)
-    document.body.addEventListener('touchstart', this._onTouchStart)
-    document.body.addEventListener('touchmove', this._onTouchMove)
-    document.body.addEventListener('touchend', this._onTouchEnd)
+    this._spiral.addEventListener('touchstart', this._onTouchStart)
+    this._spiral.addEventListener('touchmove', this._onTouchMove)
+    this._spiral.addEventListener('touchend', this._onTouchEnd)
     document.body.addEventListener('keyup', this._onKeyDown)
   } 
 
@@ -117,11 +122,8 @@ export class Spiral extends React.Component<SpiralProps, SpiralState> {
     e.preventDefault()
     const touch = e.touches[0] || e.changedTouches[0]
     const { touchStart } = this.state
-    const moved = Math.sqrt(
-      Math.pow(touch.pageX - touchStart.x, 2) +
-      Math.pow(touch.pageY - touchStart.y, 2)
-    )
-    const speed = 0.1
+    const moved = (touch.pageX - touchStart.x) + (touch.pageY - touchStart.y)
+    const speed = 0.01
     this.setState({
       angle: this.state.angle + speed * moved
     })
@@ -132,9 +134,9 @@ export class Spiral extends React.Component<SpiralProps, SpiralState> {
   }
   
   /**
-   * In direct tandom to the actual actions of the scroller, adjustes both the 
-   * magnification and the index.
-   */
+  * In direct tandom to the actual actions of the scroller, adjustes both the 
+  * magnification and the index.
+  */
   private _onWheel(e: JQueryMousewheel.JQueryMousewheelEventObject): void {
     e.preventDefault() 
     const speed = 0.1 
@@ -146,8 +148,8 @@ export class Spiral extends React.Component<SpiralProps, SpiralState> {
   }
 
   /**
-   * The timeout for the normalize function.
-   */
+  * The timeout for the normalize function.
+  */
   private normalizeTimeout: number
   
   constructor(props: SpiralProps) {
@@ -163,38 +165,42 @@ export class Spiral extends React.Component<SpiralProps, SpiralState> {
   }
 
   public render() {
-    // Which spiral have we currently selected.
-    const { angle } = this.state
-    const scale = Math.pow(aspect, angle / 90)
-    const index = Math.floor(angle / -90)
-    const transform = `rotate(${angle}deg) scale(${scale}) translate3d(0px, 0px, 0px)`
-    return (
-      <div>
-        <section className="spiral">
-          <div className="spiral__container" style={{transform}}>
-            {this.props.pages.map((page: PageProps, i: number) => {
-               const scale = Math.pow(aspect, i)
-               const angle = `${90 * i}deg`
-               const style = {
-                 transform: `scale(${scale}) rotate(${angle}) translate3d(0px, 0px, 0px)`,
-                 display: (-90 * (i + 1) > this.state.angle) ? 'none' : 'block'
-               }
-               
-               return (
-                 <div className={cn('spiral__elem', { 'spiral__elem--selected': i == index})}
-                      style={style}
-                      key={i}
-                      onClick={i == index ? null : () => this._move(i * -90)}>
-                   <div className="elem__content">
-                     <Page title={page.title} description={page.description} />
-                   </div>
-                 </div>
-               )
-             })} 
-          </div>
-        </section>
-        <div className="spiral__overlay" />
+  // Which spiral have we currently selected.
+  const { angle } = this.state
+  const scale = Math.pow(aspect, angle / 90)
+  const index = Math.floor(angle / -90)
+  const transform = `rotate(${angle}deg) scale(${scale}) translate3d(0px, 0px, 0px)`
+  return (
+  <div>
+    <section className="spiral" ref={(r) => this._spiral = r}> 
+      <div className="spiral__overlay" /> 
+      <div className="spiral__container" style={{transform}}>
+        {this.props.pages.map((page: SpiralPane, i: number) => {
+           const scale = Math.pow(aspect, i)
+           const angle = `${90 * i}deg`
+           const style = {
+             transform: `scale(${scale}) rotate(${angle}) translate3d(0px, 0px, 0px)`,
+             display: (-90 * (i + 1) > this.state.angle) ? 'none' : 'block'
+           }
+
+           // Set the current background color.
+           if ( i == index )
+             document.body.style.setProperty('--current-background', page.color)
+           
+           return (
+             <div className={cn('spiral__elem', { 'spiral__elem--selected': i == index})}
+                  style={style}
+                  key={i}
+                  onClick={i == index ? null : () => this._move(i * -90)}>
+               <div className="elem__content">
+                 {<page.content />}
+               </div>
+             </div>
+           )
+         })} 
       </div>
-    )
+    </section> 
+  </div> 
+  )
   }
 }

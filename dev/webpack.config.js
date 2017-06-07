@@ -82,6 +82,10 @@ const config = {
         use: ExtractTextPlugin.extract({
           loader: 'css-loader?importLoaders=1!postcss-loader!sass-loader' 
         })
+      },
+      {
+        test: /\.(png|jpg|)$/,
+        use: 'url-loader?limit=500'
       }
     ]
   },
