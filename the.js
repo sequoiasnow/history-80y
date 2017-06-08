@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "4a09f1b727288faad688"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "948797fd213437b3be9a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -37649,6 +37649,8 @@ var Spiral = (function (_super) {
         cancelAnimationFrame(this._animationId);
     };
     Spiral.prototype._onTouchMove = function (e) {
+        if (this.state.pause)
+            return;
         e.preventDefault();
         var touch = e.touches[0] || e.changedTouches[0];
         var touchStart = this.state.touchStart;

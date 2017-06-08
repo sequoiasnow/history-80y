@@ -122,6 +122,7 @@ export class Spiral extends React.Component<SpiralProps, SpiralState> {
   }
   
   private _onTouchMove(e: TouchEvent): void {
+    if ( this.state.pause ) return 
     e.preventDefault()
     const touch = e.touches[0] || e.changedTouches[0]
     const { touchStart } = this.state
