@@ -5,6 +5,7 @@ import { Page } from '../../Page'
 import { Grid, Col, Row } from '../../Grid'
 import { TextBox } from '../../TextBox'
 import { Background } from '../../Background'
+import { ReadMore } from '../../ReadMore'
 
 const TitleSlide = () => (
   <TextBox size={10} 
@@ -61,25 +62,28 @@ const Slide2 = () => (
   </div> 
 )
 
-const Slide3 = () => (
+const Slide3: React.SFC<{ onReadMore?: () => void }> = ({ onReadMore }) => (
   <div>
-    <TextBox size={1}>
-      <h1>The Manhatten Project</h1>
-      <p>
-        The Manhattan Project was centered around two primary issues, attaining fissionable material and creating a device that could cause a chain reaction with that material. The first proved the most difficult of the two to perform in any quantity. Like much of the Manhattan project, there was the issue of turning bleeding edge scientific discoveries into practical industrial projects. Originally there were four proposed methods of Uranium refinement studied by the so called Uranium Committee set up by the president after the Einstein letter. This morphed into the National Defense Research Committee which was a purely scientific body without military attachment. It was during this time that Glenn Seaborg identified the element plutonium as a possible alternative to Ernest Lawrence’s work on Uranium. In 1940 the United States was given intelligence concerning fission by the British in the so-called MAUD report which confirmed some assumptions about a sustainable fission reaction in Uranium-235. Furthermore it illustrated that the discovery of fission had occurred three years earlier in Germany, a discovery which prompted increased urgency in the project.
-      </p>
-      <p>
-        It is at this point important to note that the German’s were at the time pursuing an Atom Bomb project of their own, under the guidance of the Werner Heisenberg. While Hitler discontinued interest in the project after learning of the required time and funding, it is notable that some later research and atomic occurred by the German scientists working on this project. Heisenberg’s own uncertainty principle was of paramount importance in creating the atomic bomb. 
-      </p>
-      <p>
-        After the MAUD report, the research into nuclear weapons was transferred to the military under the direction Colonel Leslie Groves, who was given the rank of Brigadier General after receiving the project. This was the beginning of the Manhattan Project in its colloquial sense. At the time much land was bought for the creation of a scientific development community in Los Alamos headed by Robert Oppenheimer as well as a Uranium refinery plant in Oak Ridge Tennessee. The goal of Oak Ridge was the development of enriched uranium-235 as well as plutonium, the former coming from an electromagnetic method devised by Lawrence. It was during this time that 15,000 tons of silver bullion from the United States Treasury was melted down for wires due to a shortage of copper. 
-      </p>
+    <Background img={require('./trinity.jpg')} />
+    <TextBox full>
+      <ReadMore onClick={onReadMore}/>
     </TextBox>
   </div>
 )
 
-const Slide4 = () => (
-  <Background img={require('./trinity.jpg')} />
+const Overlay = () => (
+  <h1>
+    <h1>The Manhatten Project</h1>
+    <p>
+      The Manhattan Project was centered around two primary issues, attaining fissionable material and creating a device that could cause a chain reaction with that material. The first proved the most difficult of the two to perform in any quantity. Like much of the Manhattan project, there was the issue of turning bleeding edge scientific discoveries into practical industrial projects. Originally there were four proposed methods of Uranium refinement studied by the so called Uranium Committee set up by the president after the Einstein letter. This morphed into the National Defense Research Committee which was a purely scientific body without military attachment. It was during this time that Glenn Seaborg identified the element plutonium as a possible alternative to Ernest Lawrence’s work on Uranium. In 1940 the United States was given intelligence concerning fission by the British in the so-called MAUD report which confirmed some assumptions about a sustainable fission reaction in Uranium-235. Furthermore it illustrated that the discovery of fission had occurred three years earlier in Germany, a discovery which prompted increased urgency in the project.
+    </p>
+    <p>
+      It is at this point important to note that the German’s were at the time pursuing an Atom Bomb project of their own, under the guidance of the Werner Heisenberg. While Hitler discontinued interest in the project after learning of the required time and funding, it is notable that some later research and atomic occurred by the German scientists working on this project. Heisenberg’s own uncertainty principle was of paramount importance in creating the atomic bomb. 
+    </p>
+    <p>
+      After the MAUD report, the research into nuclear weapons was transferred to the military under the direction Colonel Leslie Groves, who was given the rank of Brigadier General after receiving the project. This was the beginning of the Manhattan Project in its colloquial sense. At the time much land was bought for the creation of a scientific development community in Los Alamos headed by Robert Oppenheimer as well as a Uranium refinery plant in Oak Ridge Tennessee. The goal of Oak Ridge was the development of enriched uranium-235 as well as plutonium, the former coming from an electromagnetic method devised by Lawrence. It was during this time that 15,000 tons of silver bullion from the United States Treasury was melted down for wires due to a shortage of copper. 
+    </p>
+  </h1>
 )
 
 
@@ -96,11 +100,8 @@ export const sequoiaData = [
     content: Slide2
   },
   {
-    color: 'rgb(41, 128, 185)',
-    content: Slide3
-  },
-  {
     color: 'rgb(231, 76, 60)',
-    content: Slide4
+    content: Slide3,
+    overlay: Overlay
   }
 ]

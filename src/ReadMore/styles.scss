@@ -1,0 +1,14 @@
+.read-more {
+  padding: 30px;
+  background-color: var(--current-background);
+  color: white;
+  text-transform: uppercase;
+  transition: background-color .4s ease;
+  border: none;
+  border-radius: 5px;
+  
+  &:hover {
+    cursor: pointer;
+    background-color: #fe845d;
+  }
+}

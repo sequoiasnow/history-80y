@@ -1,0 +1,55 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+  background-color: #fafafa;
+  color: black;
+}
+
+$overlay--close-size: 70px;
+.overlay__close {
+  width: $overlay--close-size;
+  height: $overlay--close-size;
+  margin: 10px auto;
+  border-radius: 50%;
+  background-color: #EF4836;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  &::before,
+  &::after {
+    content: '';
+    background-color: white;
+    width: 80%;
+    margin-let: -50%;
+    border-radius: 4px;
+    height: 6px;
+  }
+
+  &::before {
+    transform: rotate(45deg);
+  }
+
+  &::after {
+    transform: rotate(-45deg);
+  }
+}
+
+.overlay__content {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+}
+
+.overlay__content img {
+  max-width: 80vw;
+  display: block;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+} 

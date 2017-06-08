@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Page, PageProps } from '../Page'
+import { Overlay } from '../Overlay'
 import { cn } from '../lib/cn'
 import { setColors } from '../colors'
 
@@ -14,8 +15,9 @@ import './styles.scss'
 const aspect = 0.6180339887;
 
 interface SpiralPane {
-  color?: string, 
-  content: React.SFC<{}>
+  color: string,
+  overlay?: React.SFC<{}>,
+  content: React.SFC<{ onReadMore?: () => void}>
 }
 
 /**
@@ -28,6 +30,8 @@ export interface SpiralProps {
 
 interface SpiralState {
   angle: number,
+  pause: boolean
+  overlay?: React.SFC<{}>,
   touchStart: {
     x: number,
     y: number
@@ -46,7 +50,6 @@ export class Spiral extends React.Component<SpiralProps, SpiralState> {
    */ 
   componentDidMount() {
     $(window).mousewheel(this._onWheel)
-    $(window).on('scroll', () => false)
     this._spiral.addEventListener('touchstart', this._onTouchStart)
     this._spiral.addEventListener('touchmove', this._onTouchMove)
     this._spiral.addEventListener('touchend', this._onTouchEnd)
@@ -134,10 +137,11 @@ export class Spiral extends React.Component<SpiralProps, SpiralState> {
   }
   
   /**
-  * In direct tandom to the actual actions of the scroller, adjustes both the 
-  * magnification and the index.
-  */
+   * In direct tandom to the actual actions of the scroller, adjustes both the 
+   * magnification and the index.
+   */
   private _onWheel(e: JQueryMousewheel.JQueryMousewheelEventObject): void {
+    if ( this.state.pause ) return 
     e.preventDefault() 
     const speed = 0.1 
     this.setState({
@@ -148,13 +152,13 @@ export class Spiral extends React.Component<SpiralProps, SpiralState> {
   }
 
   /**
-  * The timeout for the normalize function.
-  */
+   * The timeout for the normalize function.
+   */
   private normalizeTimeout: number
   
   constructor(props: SpiralProps) {
     super(props)
-    this.state = { angle: 0, touchStart: { x: 0, y: 0 } }
+    this.state = { angle: 0, touchStart: { x: 0, y: 0 }, pause: false }
     this._onWheel = this._onWheel.bind(this)
     this._move = this._move.bind(this)
     this._animate = this._animate.bind(this)
@@ -165,42 +169,49 @@ export class Spiral extends React.Component<SpiralProps, SpiralState> {
   }
 
   public render() {
-  // Which spiral have we currently selected.
-  const { angle } = this.state
-  const scale = Math.pow(aspect, angle / 90)
-  const index = Math.floor(angle / -90)
-  const transform = `rotate(${angle}deg) scale(${scale}) translate3d(0px, 0px, 0px)`
-  return (
-  <div>
-    <section className="spiral" ref={(r) => this._spiral = r}> 
-      <div className="spiral__overlay" /> 
-      <div className="spiral__container" style={{transform}}>
-        {this.props.pages.map((page: SpiralPane, i: number) => {
-           const scale = Math.pow(aspect, i)
-           const angle = `${90 * i}deg`
-           const style = {
-             transform: `scale(${scale}) rotate(${angle}) translate3d(0px, 0px, 0px)`,
-             display: (-90 * (i + 1) > this.state.angle) ? 'none' : 'block'
-           }
+    // Which spiral have we currently selected.
+    const { angle } = this.state
+    const scale = Math.pow(aspect, angle / 90)
+    const index = Math.floor(angle / -90)
+    const transform = `rotate(${angle}deg) scale(${scale}) translate3d(0px, 0px, 0px)`
+    return (
+      <div>
+        <section className="spiral" ref={(r) => this._spiral = r}> 
+          <div className="spiral__overlay" /> 
+          <div className="spiral__container" style={{transform}}>
+            {this.props.pages.map((page: SpiralPane, i: number) => {
+               const scale = Math.pow(aspect, i)
+               const angle = `${90 * i}deg`
+               const style = {
+                 transform: `scale(${scale}) rotate(${angle}) translate3d(0px, 0px, 0px)`,
+                 display: (-90 * (i + 1) > this.state.angle) ? 'none' : 'block'
+               }
 
-           // Set the current background color.
-           if ( i == index )
-             document.body.style.setProperty('--current-background', page.color)
-           
-           return (
-             <div className={cn('spiral__elem', { 'spiral__elem--selected': i == index})}
-                  style={style}
-                  key={i}
-                  onClick={i == index ? null : () => this._move(i * -90)}>
-               <div className="elem__content">
-                 {<page.content />}
-               </div>
-             </div>
-           )
-         })} 
-      </div>
-    </section> 
-  </div> 
-  )
+               // Set the current background color.
+               if ( i == index )
+                 document.body.style.setProperty('--current-background', page.color)
+               
+               return (
+                 <div className={cn('spiral__elem', { 'spiral__elem--selected': i == index})}
+                      style={style}
+                      key={i}
+                      onClick={i == index ? null : () => this._move(i * -90)}>
+                   <div className="elem__content">
+                     {<page.content onReadMore={() => this.setState({
+                         overlay: page.overlay || null,
+                         pause: true
+                       })} />}
+                   </div>
+                 </div>
+               )
+             })} 
+          </div>
+          {this.state.overlay &&
+           <Overlay onClose={() => this.setState({ overlay: null, pause: false })}>
+             {<this.state.overlay />}
+           </Overlay>}
+        </section> 
+      </div> 
+    )
   }
 }

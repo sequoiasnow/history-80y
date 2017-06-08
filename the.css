@@ -1,4 +1,66 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);.spiral {
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+  background-color: #fafafa;
+  color: black; }
+
+.overlay__close {
+  width: 70px;
+  height: 70px;
+  margin: 10px auto;
+  border-radius: 50%;
+  background-color: #EF4836;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center; }
+
+.overlay__close::before, .overlay__close::after {
+    content: '';
+    background-color: white;
+    width: 80%;
+    margin-let: -50%;
+    border-radius: 4px;
+    height: 6px; }
+
+.overlay__close::before {
+    -webkit-transform: rotate(45deg);
+            transform: rotate(45deg); }
+
+.overlay__close::after {
+    -webkit-transform: rotate(-45deg);
+            transform: rotate(-45deg); }
+
+.overlay__content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 40px; }
+
+.overlay__content img {
+  max-width: 80vw;
+  display: block;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto; }
+.spiral {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -359,6 +421,17 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center; }
+.read-more {
+  padding: 30px;
+  background-color: var(--current-background);
+  color: white;
+  text-transform: uppercase;
+  transition: background-color .4s ease;
+  border: none;
+  border-radius: 5px; }
+  .read-more:hover {
+    cursor: pointer;
+    background-color: #fe845d; }
 body {
   padding: 0;
   margin: 0;

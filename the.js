@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3792ae2feb4dfdf5a9a8"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3e28896e6aea1862ee2a"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -37484,6 +37484,83 @@ exports.Row = function (props) { return (React.createElement("div", { className:
 
 /***/ }),
 
+/***/ "./Overlay/index.tsx":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__("../node_modules/react/react.js");
+__webpack_require__("./Overlay/styles.scss");
+var Overlay = (function (_super) {
+    __extends(Overlay, _super);
+    function Overlay() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    Overlay.prototype.componentDidMount = function () {
+        window.addEventListener('mousedown', this.props.onClose);
+    };
+    Overlay.prototype.componentWillUnmount = function () {
+        window.removeEventListener('mousedown', this.props.onClose);
+    };
+    Overlay.prototype.render = function () {
+        return (React.createElement("div", { className: "overlay" },
+            React.createElement("div", { className: "overlay__close", onClick: this.props.onClose }),
+            React.createElement("div", { className: "overlay__content" }, this.props.children)));
+    };
+    return Overlay;
+}(React.Component));
+exports.Overlay = Overlay;
+
+
+ ;(function register() { /* react-hot-loader/webpack */ if (process.env.NODE_ENV !== 'production') { if (typeof __REACT_HOT_LOADER__ === 'undefined') { return; } if (typeof module.exports === 'function') { __REACT_HOT_LOADER__.register(module.exports, 'module.exports', "/Users/sequoiasnow/Documents/Sites/history-80y/src/Overlay/index.tsx"); return; } for (var key in module.exports) { if (!Object.prototype.hasOwnProperty.call(module.exports, key)) { continue; } var namedExport = void 0; try { namedExport = module.exports[key]; } catch (err) { continue; } __REACT_HOT_LOADER__.register(namedExport, key, "/Users/sequoiasnow/Documents/Sites/history-80y/src/Overlay/index.tsx"); } } })();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("../node_modules/node-libs-browser/node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./Overlay/styles.scss":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./ReadMore/index.tsx":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__("../node_modules/react/react.js");
+__webpack_require__("./ReadMore/styles.scss");
+exports.ReadMore = function (_a) {
+    var onClick = _a.onClick, text = _a.text;
+    return (React.createElement("button", { className: "read-more", onClick: onClick }, text || 'Read More'));
+};
+
+
+ ;(function register() { /* react-hot-loader/webpack */ if (process.env.NODE_ENV !== 'production') { if (typeof __REACT_HOT_LOADER__ === 'undefined') { return; } if (typeof module.exports === 'function') { __REACT_HOT_LOADER__.register(module.exports, 'module.exports', "/Users/sequoiasnow/Documents/Sites/history-80y/src/ReadMore/index.tsx"); return; } for (var key in module.exports) { if (!Object.prototype.hasOwnProperty.call(module.exports, key)) { continue; } var namedExport = void 0; try { namedExport = module.exports[key]; } catch (err) { continue; } __REACT_HOT_LOADER__.register(namedExport, key, "/Users/sequoiasnow/Documents/Sites/history-80y/src/ReadMore/index.tsx"); } } })();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("../node_modules/node-libs-browser/node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./ReadMore/styles.scss":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./Spiral/index.tsx":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37501,6 +37578,7 @@ var __extends = (this && this.__extends) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__("../node_modules/react/react.js");
+var Overlay_1 = __webpack_require__("./Overlay/index.tsx");
 var cn_1 = __webpack_require__("./lib/cn.ts");
 var $ = __webpack_require__("../node_modules/jquery/dist/jquery.js");
 __webpack_require__("../node_modules/jquery-mousewheel/jquery.mousewheel.js");
@@ -37510,7 +37588,7 @@ var Spiral = (function (_super) {
     __extends(Spiral, _super);
     function Spiral(props) {
         var _this = _super.call(this, props) || this;
-        _this.state = { angle: 0, touchStart: { x: 0, y: 0 } };
+        _this.state = { angle: 0, touchStart: { x: 0, y: 0 }, pause: false };
         _this._onWheel = _this._onWheel.bind(_this);
         _this._move = _this._move.bind(_this);
         _this._animate = _this._animate.bind(_this);
@@ -37522,7 +37600,6 @@ var Spiral = (function (_super) {
     }
     Spiral.prototype.componentDidMount = function () {
         $(window).mousewheel(this._onWheel);
-        $(window).on('scroll', function () { return false; });
         this._spiral.addEventListener('touchstart', this._onTouchStart);
         this._spiral.addEventListener('touchmove', this._onTouchMove);
         this._spiral.addEventListener('touchend', this._onTouchEnd);
@@ -37592,6 +37669,8 @@ var Spiral = (function (_super) {
     };
     Spiral.prototype._onWheel = function (e) {
         var _this = this;
+        if (this.state.pause)
+            return;
         e.preventDefault();
         var speed = 0.1;
         this.setState({
@@ -37619,8 +37698,13 @@ var Spiral = (function (_super) {
                     if (i == index)
                         document.body.style.setProperty('--current-background', page.color);
                     return (React.createElement("div", { className: cn_1.cn('spiral__elem', { 'spiral__elem--selected': i == index }), style: style, key: i, onClick: i == index ? null : function () { return _this._move(i * -90); } },
-                        React.createElement("div", { className: "elem__content" }, React.createElement(page.content, null))));
-                })))));
+                        React.createElement("div", { className: "elem__content" }, React.createElement(page.content, { onReadMore: function () { return _this.setState({
+                                overlay: page.overlay || null,
+                                pause: true
+                            }); } }))));
+                })),
+                this.state.overlay &&
+                    React.createElement(Overlay_1.Overlay, { onClose: function () { return _this.setState({ overlay: null, pause: false }); } }, React.createElement(this.state.overlay, null)))));
     };
     return Spiral;
 }(React.Component));
@@ -37668,6 +37752,73 @@ exports.TextBox = function (props) { return (React.createElement("div", { classN
 
 /***/ }),
 
+/***/ "./data/daphne/image1.png":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "73730aa93af011716eaa93961c94c092.png";
+
+/***/ }),
+
+/***/ "./data/daphne/index.tsx":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__("../node_modules/react/react.js");
+var TextBox_1 = __webpack_require__("./TextBox/index.tsx");
+var Background_1 = __webpack_require__("./Background/index.tsx");
+var ReadMore_1 = __webpack_require__("./ReadMore/index.tsx");
+var TitleSlide = function (_a) {
+    var onReadMore = _a.onReadMore;
+    return (React.createElement("div", null,
+        React.createElement(Background_1.Background, { img: __webpack_require__("./data/daphne/image1.png") }),
+        React.createElement(TextBox_1.TextBox, { full: true, size: 1 },
+            React.createElement("h1", null, "What is the U.S. Strategic Bombing Survey?"),
+            React.createElement("p", null, "The USSBS was originally created in 1944 to conduct objective, official studies of the attacks on Germany and their physical consequences. Officially created in November of \u201844, the Secretary of War and President Roosevelt established the board with intentions based on warfare in Europe. Not until years after Pearl Harbor, in August of 1945, a new board was ordered by President Truman under the USSBS to study aerial warfare against Japan and throughout the Pacific. "),
+            React.createElement(ReadMore_1.ReadMore, { onClick: onReadMore }))));
+};
+var TitleOverlay = function () { return (React.createElement("div", null,
+    React.createElement("h1", null, "What is the U.S. Strategic Bombing Survey?"),
+    React.createElement("p", null, "The USSBS was originally created in 1944 to conduct objective, official studies of the attacks on Germany and their physical consequences. Officially created in November of \u201844, the Secretary of War and President Roosevelt established the board with intentions based on warfare in Europe. Not until years after Pearl Harbor, in August of 1945, a new board was ordered by President Truman under the USSBS to study aerial warfare against Japan and throughout the Pacific. "),
+    React.createElement("p", null, " The introduction to the original summary report emphasizes that the survey is not a written history of the war, nor a statement of victory, in order to claim a completely objective and unbiased report. As we examine more closely the timelines of the conduction of the survey and the production and planning of the bombs, the survey seems to be of greatest purpose to study the effects of the atomic bombs in Hiroshima and Nagasaki, as well as justify them in a greater written history. Following sections will analyze two specific content sections throughout the report that justify the atomic bombs most frequently: \u201CThe Effects of the Atomic Bombs\u201D, and in the conclusion, \u201CThe Uniqueness of the Pacific War\u201D, and \u201CThe Impact of Atomic Bombs on the Role of Airpower\u201D. "),
+    React.createElement("h2", null, " Survey Operation"),
+    React.createElement("p", null, "During the survey process, the operation headquarters were located in Tokyo. There were also sub-headquarters in Nagoya, Osaka, Hiroshima, and Nagasaki, as well as further travel and dispersal by groups throughout Japan, the Pacific island, and mainland Asia. "),
+    React.createElement("p", null, "The officials of the Survey in Japan, who are all civilians, included: Chairman Franklin D\u2019Olier, Vice Chairmen Paul H. Nitze and Henry C. Alexander, Directors Harry L. Bowman, J. Kenneth Galbraith, Rensis Likert, Frank A. McNamee, Jr., Fred Searls, Jr., Monroe E. Spaght, Dr. Louis R. Thompson, and Theodore P. Wright, and Secretary Walter Wilds."),
+    React.createElement("p", null, "In order to complete the report, the survey required evidence from 300 civilians, 350 officers, and 500 enlisted men. The military personnel recruited for the study comprised of 60% Army and 40% Navy, both of which supplied and assisted the survey with people, resources, transportation, as well as other information and intelligence. "),
+    React.createElement("h2", null, " Comparing European and Pacific War Reports "),
+    React.createElement("p", null, "Because the air warfare reports for the European War obviously did not include the effects of the atomic bomb, these two reports (European and Pacific) are completely different. There are certain (often vague) objectives addressed in the \u201Cfirst\u201D report, the European War report summary, that are referenced in the Pacific War summary report, the second of the two. President Truman ordered the founding of the board for the Pacific War survey primarily to assess the effects of the atomic bombs on Hiroshima and Nagasaki. While both consider other aspects and forms of aerial warfare, such as raids and geographic calculations of destruction/casualties in correlation to local hospital and transportation locations, the reports still detach from one another because the incentives to create them differ very much despite the mutual focus on WWII military strategy and efficacy by the U.S."),
+    React.createElement("p", null, " An academic article titled, \u201CThe Evolution of U.S. Strategic Bombing of Urban Areas\u201D, details the changes and differences between European and Japanese American air warfare throughout WWII. Often in reference to the American Air Force (AAF), Conrad C. Crane, a military academic who focuses on strategic warfare, complicates and analyzes many ways the U.S. validated their decisions with both firebombs and even the atomic bomb. He explains that a predisposing willingness to kill civilians before warfare begins can lead to indiscrimination between casualties. Crane states, \u201CThe decision to firebomb, like that to drop the atomic bomb, may have been made on the assumption that using everything available would lead to eventual victory\u201D (Crane, 16). Military necessity becomes a central term and question throughout the article while considering the shifts between strategies in Europe and Japan throughout the 1940s. "),
+    React.createElement("h2", null, "\u201CThe Effects of the Atomic Bombs\u201D - Survey Report Section"),
+    React.createElement("p", null, "Although the incentives to conduct the Pacific War survey rested on foundations of nuclear warfare and the atomic bombs, only six pages of the report summary are dedicated to the effects of the atomic bombs. This section introduces the bomb with a series of questions to follow, the most obvious question of military effectiveness of the bomb already being answered by mass destruction. Very bluntly, the chapter states: \u201COne hundred thousand people were killed, 6 square miles or over 50 percent of the built-up areas of the two cities were destroyed\u201D (U.S. Gov\u2019t, 96). Because of the apparently obvious answers of the bombs\u2019 capabilities, the survey focused most of its attention to questions of the physical, economic, and morale effects of the use of atomic weapons in the two cities. "),
+    React.createElement("p", null, "The section continues on to list off the similarities and consistencies between the many eyewitness accounts considered in the survey. Once this is skimmed over briefly, the section spends most of its pages on the details of the physical process of human annihilation by the radiation of the atomic bombs. After these details, a statement follows that would later be proven untrue by the Lucky Dragon in 1954. "),
+    React.createElement("p", null, "The above description mentions all the categories of the destructive action by the atomic-bomb explosions at Hiroshima and Nagasaki . There were no other types of action. Nothing was vaporized or disintegrated; vegetation is growing again immediately under the center of the explosions; there are no indications that radio-activity continued after the explosion to a sufficient degree to harm human beings (U.S. Gov\u2019t, 99). "),
+    React.createElement("p", null, "The U.S. government at this time was likely aware of the longer-term effects of radioactive fallout via air and water wind drift from Hiroshima and Nagasaki. This section of the report summary exemplifies the U.S. government\u2019s willingness to neglect a realistic assessment of the damage caused by nuclear warfare in order to continue the production and testing of these technologies. "),
+    React.createElement("h2", null, "  Civilian Surveys and International Connections: "),
+    React.createElement("p", null, "Kaleria Palchikoff Drago (Civilian Interview Conducted for Survey) and brother Nikolay Palchikoff (U.S. Army intelligence member during Pacific War) "),
+    React.createElement("iframe", { width: "560", height: "315", src: "https://www.youtube.com/embed/L8Ku7tawAPk" }),
+    "(Video: \"US Strategic Bombing Survey of Hiroshima Aftermath.\" Youtube. May 5, 2014. Accessed June 4, 2017. https://www.youtube.com/watch?v=L8Ku7tawAPk.)",
+    React.createElement("p", null, "Kaleria Palchikoff Drago lived in Hiroshima at the time of the bomb. As a Russian-born, Japanese citizen, she was able to conduct an interview in English for the purposes of the survey. Kaleria\u2019s family lived further from the epicentre location of the bombing and so survived. In the interview, Palchikoff explains her series of events as her family visited a military hospital and assisted with critically injured and dying patients. The interview includes gruesome details of the physical horrors of bomb victims, and the devastated city surrounding them. Because Kaleria lived in Japan but was not ethnically Japanese, her interview found consistencies with report intentions to generalize about the Japanese. "),
+    React.createElement("p", null, "Interestingly, Kaleria\u2019s brother Nikolay Palchikoff moved to the United States before WWII to attend school, and enlisted in the U.S. Army after Pearl Harbor. Nikolay was age 16 when he moved to the U.S., age 18 during his enlistment after Pearl Harbor, and age 21 when he returned to Hiroshima. He traveled from his station in the Philippines to Japan for the Army in order to ensure that the Japanese correctly upheld the conditions of surrender. Nikolay also witnessed severe brutality and complete destruction of Hiroshima in the land and the people of the city. He vowed to never return to Japan again after this visit, and remained in the Army as a nationalistic believer in the American justification of the bombing due to new and reports such as the USSBS first published in 1946. "),
+    React.createElement("p", null, "After Nikolay returned to the United States with his family, he remained in the U.S. Army. It was not until years later that the Army reserves called him to attend an emergency drill. When he realized that the drill only served to further justify nuclear warfare, rather than actually prepare soldiers and citizens from the complete destruction he witnessed in Hiroshima before, he quit the army (Palchikoff, 2). This personal reevaluation of American propaganda and censorship brought Palchikoff to a state where he felt a sense of agency to bring this perspective to international levels. After vowing never to return to Japan in 1945, Palchikoff returned twice, and the second time in 1995 on the 50th anniversary of the bomb. He shared his stories with several Japanese citizens as he walked from Kobe to Hiroshima, and he also spoke at a conference during his visit where he apologized for his actions (Ibid.). "),
+    React.createElement("p", null, "Even when there are civilians such as Kaleria Palchikoff Drago who seem like a perfect palette to reinforce the objectives that the U.S. government wanted to portray in the USSBS, when one examines circumstances with a closer lens, the peripheral details become obvious. Her brother Nikolay\u2019s involvement in WWII and eventual rejection of U.S. propaganda and atomic bomb justification reveals a very different narrative that the U.S. government actively avoided during the process of the survey report."),
+    React.createElement("h2", null, "Impacts on U.S. Postwar Perspectives on the Use of Atomic Bombs "),
+    React.createElement("p", null, "Federal government information and reports strongly impact U.S. citizen postwar perspectives in the 20 years following the end of the war and use of atomic weapons. Following the end of WWII, the government continued to produce and test atomic weapons in competition with the USSR. While citizens are an obvious and primary audience targeted by these reports, they bring forth an even stronger influence in military spheres and segments. Many soldiers stationed throughout Europe and the Pacific during the war witnessed questionable violence, especially those committed on civilian populations. After the dropping of both atomic bombs and subsequent Japanese surrender, the survey and report functioned to justify and continue the production of nuclear warfare technologies. "),
+    React.createElement("p", null, " An important concluding argument in the report, titled \u201CStrength as a force for peace\u201D, confidently demands that the United States maintain military strength and security (intelligence) to prevent any more war. Clearly, this argument could not be sustained in our contemporary political climate with various ongoing global conflicts with U.S. involvement. The conclusion argues in this section that, \u201CThe Japanese would never have attacked Pearl Harbor had they not correctly assessed the weakness of our defenses in the Pacific and had they not incorrectly assessed the fighting determination of the United States when attacked\u201D (U.S. Gov\u2019t, 119-120). While the conclusion argues that this is, \u201Cby no mean intended as a recommendation for a race in arms with other nations\u201D, it is just that (ibid.). The summary of the report constantly inserts these justifications that point away from later Cold War developments, even though this is the obvious narrative following WWII and further nuclear weapon developments. This notion of modern imperialism following the war is very important to analyze under the lense of the surveys and reports by the U.S. in Japan immediately before and after the atomic atrocities committed to Hiroshima and Nagasaki."))); };
+exports.daphneData = [
+    {
+        color: '#5ab3b4',
+        content: TitleSlide,
+        overlay: TitleOverlay
+    }
+];
+
+
+ ;(function register() { /* react-hot-loader/webpack */ if (process.env.NODE_ENV !== 'production') { if (typeof __REACT_HOT_LOADER__ === 'undefined') { return; } if (typeof module.exports === 'function') { __REACT_HOT_LOADER__.register(module.exports, 'module.exports', "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/daphne/index.tsx"); return; } for (var key in module.exports) { if (!Object.prototype.hasOwnProperty.call(module.exports, key)) { continue; } var namedExport = void 0; try { namedExport = module.exports[key]; } catch (err) { continue; } __REACT_HOT_LOADER__.register(namedExport, key, "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/daphne/index.tsx"); } } })();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("../node_modules/node-libs-browser/node_modules/process/browser.js")))
+
+/***/ }),
+
 /***/ "./data/index.tsx":
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37676,7 +37827,10 @@ exports.TextBox = function (props) { return (React.createElement("div", { classN
 Object.defineProperty(exports, "__esModule", { value: true });
 var sequoia_1 = __webpack_require__("./data/sequoia/index.tsx");
 var john_1 = __webpack_require__("./data/john/index.tsx");
-exports.pages = sequoia_1.sequoiaData.concat(john_1.johnData);
+var miles_1 = __webpack_require__("./data/miles/index.tsx");
+var daphne_1 = __webpack_require__("./data/daphne/index.tsx");
+var monica_1 = __webpack_require__("./data/monica/index.tsx");
+exports.pages = sequoia_1.sequoiaData.concat(john_1.johnData, monica_1.monicaData, miles_1.milesData, daphne_1.daphneData);
 
 
  ;(function register() { /* react-hot-loader/webpack */ if (process.env.NODE_ENV !== 'production') { if (typeof __REACT_HOT_LOADER__ === 'undefined') { return; } if (typeof module.exports === 'function') { __REACT_HOT_LOADER__.register(module.exports, 'module.exports', "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/index.tsx"); return; } for (var key in module.exports) { if (!Object.prototype.hasOwnProperty.call(module.exports, key)) { continue; } var namedExport = void 0; try { namedExport = module.exports[key]; } catch (err) { continue; } __REACT_HOT_LOADER__.register(namedExport, key, "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/index.tsx"); } } })();
@@ -37750,44 +37904,50 @@ var React = __webpack_require__("../node_modules/react/react.js");
 var Grid_1 = __webpack_require__("./Grid/index.tsx");
 var TextBox_1 = __webpack_require__("./TextBox/index.tsx");
 var Background_1 = __webpack_require__("./Background/index.tsx");
+var ReadMore_1 = __webpack_require__("./ReadMore/index.tsx");
 var TitleSlide = function () { return (React.createElement(TextBox_1.TextBox, { size: 3, subTitle: "- Diane Mayr, Nagasaki World Haiki Festival", center: true },
     React.createElement("p", null, "The sun cannot know"),
     React.createElement("p", null, "The smudge on the ground"),
     React.createElement("p", null, "Once had a name."))); };
-var Slide1 = function () { return (React.createElement(TextBox_1.TextBox, { size: 1 },
+var Overlay1 = function () { return (React.createElement("div", null,
     React.createElement("p", null, "Art is a reaction, a reaction meant to capture a feeling. To capture this feeling the artists uses every tool and trick to create thoughts in those who interact with art. But without meaning, most art falls to the wayside as trivial. It is when art is coupled with a message that the art gains purpose, a voice reaching out of the work to say something important, something the artist feels should be said to all. Many times, these invocative works come from experience, an event or series of events that shapes who the artist is. For any artist present in Hiroshima on August 6th  1945, a roaring fireball of an event cemented itself as a muse for those trying to capture the awe of untold death and destruction."),
     React.createElement("p", null, "But the Atomic Bomb became more than just an image. For many artists, the Atomic Bomb became a tool for peace. This stain on the world opened dialog about how far gone the war industry was, many saw the very concept of the bomb to be a tipping point in the history of warfare, one that we could never step down from. Resentment, never found on such an international scale spread across the globe as a response to this excessive use of force."),
-    React.createElement("p", null, "In Japan, the Atomic Bomb was received as expected, with outcries of horror and calls for the end of the war immediately. This pain was captured in many ways, but one of the most impactful is not the art of adults, but the art of children present."))); };
-var Slide2 = function () { return (React.createElement(Grid_1.Grid, null,
-    React.createElement(Grid_1.Col, { width: 4 },
-        React.createElement(Grid_1.Row, { height: 2 },
-            React.createElement(Grid_1.Grid, null,
-                React.createElement(Grid_1.Col, { width: 2 },
-                    React.createElement(Grid_1.Row, { height: 4, img: __webpack_require__("./data/john/1.jpg") })),
-                React.createElement(Grid_1.Col, { width: 2 },
-                    React.createElement(Grid_1.Row, { height: 4, img: __webpack_require__("./data/john/2.jpg") })))),
-        React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/john/3.jpg") })))); };
-var Slide3 = function () { return (React.createElement(TextBox_1.TextBox, { size: 1 },
+    React.createElement("p", null, "In Japan, the Atomic Bomb was received as expected, with outcries of horror and calls for the end of the war immediately. This pain was captured in many ways, but one of the most impactful is not the art of adults, but the art of children present."),
     React.createElement("p", null, "These works capture a loss of innocence, the exact moment where the harsh realities of war changed these children. These works were received by the world with shock. Never before had a weapon threatened the existence of so many. The art also brings to light the victimized children, a horror of war so religiously avoided that a new wave of images like this had the power to shift the paradigm. These images hold the message of despair that these children felt."),
     React.createElement("p", null, "Atomic art also found roots in America, the instigator of this destruction. While many soldiers and scholars argue that the loss of life would have been greater in a mainland attack, the fact that the bombs took thousands of lives in an instant stirred the concerns of those in the states. For artists, it became a mission to bring the message of peace from the ashes of the bomb. Many artists, such as Eugene Von Bruenchenhein sought to bring the bomb to life in the eyes of the American public."))); };
-var Slide4 = function () { return (React.createElement(Grid_1.Grid, null,
-    React.createElement(Grid_1.Col, { width: 2 },
-        React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/john/4.jpg") }),
-        React.createElement(Grid_1.Row, { height: 2 },
-            React.createElement(TextBox_1.TextBox, null,
-                "Von Bruenchenhein\u2019s work sought to colorize and mystify the bomb. In an interview with the Milwaukee journal Dean Jense writes ",
-                React.createElement("i", null, "\u201CVon Bruenchenhein did not shrink back in terror at the sight of monsters that were in all colors of hell and looked like escapees from a nightmare. He made portraits of the monsters as though he considered them to be every bit as beautiful as the full-thighed Venuses that Rubens painted\u201D. "),
-                " The article also summarizes the mission Von Bruenchenhein had of bringing to light the strange side of the \u201Capocalypse\u201D as he called it. His work can be"))),
-    React.createElement(Grid_1.Col, { width: 2 },
-        React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/john/5.jpg") }),
-        React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/john/6.jpg") })))); };
-var Slide5 = function () { return (React.createElement(TextBox_1.TextBox, null,
+var Slide1 = function (_a) {
+    var onReadMore = _a.onReadMore;
+    return (React.createElement(Grid_1.Grid, null,
+        React.createElement(Grid_1.Col, { width: 2 },
+            React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/john/1.jpg") }),
+            React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/john/2.jpg") })),
+        React.createElement(Grid_1.Col, { width: 2 },
+            React.createElement(Grid_1.Row, { height: 2 },
+                React.createElement(TextBox_1.TextBox, null,
+                    React.createElement("p", null, " Art is a reaction, a reaction meant to capture a feeling. To capture this feeling the artists uses every tool and trick to create thoughts in those who interact with art. But without meaning, most art falls to the wayside as trivial. It is when art is coupled with a message that the art gains purpose, a voice reaching out of the work to say something important, something the artist feels should be said to all."),
+                    React.createElement(ReadMore_1.ReadMore, { onClick: onReadMore }))),
+            React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/john/3.jpg") }))));
+};
+var Slide2 = function (_a) {
+    var onReadMore = _a.onReadMore;
+    return (React.createElement(Grid_1.Grid, null,
+        React.createElement(Grid_1.Col, { width: 2 },
+            React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/john/4.jpg") }),
+            React.createElement(Grid_1.Row, { height: 2 },
+                React.createElement(TextBox_1.TextBox, null,
+                    React.createElement("i", null, "\u201CVon Bruenchenhein did not shrink back in terror at the sight of monsters that were in all colors of hell and looked like escapees from a nightmare. He made portraits of the monsters as though he considered them to be every bit as beautiful as the full-thighed Venuses that Rubens painted\u201D. "),
+                    React.createElement(ReadMore_1.ReadMore, { onClick: onReadMore })))),
+        React.createElement(Grid_1.Col, { width: 2 },
+            React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/john/5.jpg") }),
+            React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/john/6.jpg") }))));
+};
+var Overlay2 = function () { return (React.createElement("div", null,
     React.createElement("p", null, "While the Atomic Bomb shined through as a predominate symbol in painting and drawing, perhaps the best commentary of the A-bomb comes from films."),
     React.createElement("p", null, "Godzilla became a fast favorite in Japan, with the film itself being a hidden commentary on the potential dangers of just the bombs after effects. Rampant destruction is the only word to describe the nuclear-charged horrors of the atomic lizard\u2019s terror across japan. The director, Ishir\u014D Honda, stated in an interview that \u201CIf Godzilla had been a dinosaur or some other animal, he would have been killed by just one cannonball. But if he were equal to an atomic bomb, we wouldn't know what to do. So, I took the characteristics of an atomic bomb and applied them to Godzilla\u2026\u201D. In doing such he embodies the atomic bomb as a monster, something to fear beyond all else. This was the sentiments at the time, that nothing could stop the destruction of the atom"),
     React.createElement("p", null, "But some of the best commentary on the bomb was made after the initial turmoil of Hiroshima and Nagasaki. Disarmament and General resent to the bomb grew to an all-time high during the cold war, where the thought of nuclear strike was just an everyday phenomenon. For Stanley Kubrick, the A-bomb became something so dark that it transcended into comedy. The film looks to show the ridiculous nature of mutually assured destruction. While the film also comments on the time-period and the cold war, the main driving force is this 200-megaton death stick that has the power to turn the world upside-down. Kubrick looked to give America a new way to think about the bomb and just exactly what can go wrong. Dr.Strangelove was received warmly by the American people, hopefully creating a seed of doubt about the safety associated with the use and deployment of nuclear weapons."))); };
-var Slide6 = function () { return (React.createElement(Background_1.Background, { img: __webpack_require__("./data/john/7.jpg") },
+var Slide3 = function () { return (React.createElement(Background_1.Background, { img: __webpack_require__("./data/john/7.jpg") },
     React.createElement(TextBox_1.TextBox, { size: 1, full: true }, "Altogether, and along with countless others, these works capture the mindset of a time period. Horror, fear, ridiculous situations of world ending proportions are all part of the message that the bomb itself is a danger to humanity as we know it. Whether it's giant lizards or face melting loved ones, these images seek to educate the world on the mistake of using nuclear weapons on our fellow humans. Through art these people are able to tell their stories across the globe, reacting out"))); };
-var Slide7 = function () { return (React.createElement(Background_1.Background, { img: __webpack_require__("./data/john/8.jpg") })); };
+var Slide4 = function () { return (React.createElement(Background_1.Background, { img: __webpack_require__("./data/john/8.jpg") })); };
 exports.johnData = [
     {
         color: 'black',
@@ -37795,36 +37955,210 @@ exports.johnData = [
     },
     {
         color: '#9a5cb4',
-        content: Slide1
-    },
-    {
-        color: 'rgb(52, 73, 94)',
-        content: Slide2
+        content: Slide1,
+        overlay: Overlay1
     },
     {
         color: 'rgb(22, 160, 133)',
-        content: Slide3
+        content: Slide2,
+        overlay: Overlay2
     },
     {
         color: 'rgb(189, 195, 199)',
-        content: Slide4
+        content: Slide3
     },
     {
         color: '#094b22',
-        content: Slide5
+        content: Slide4
     },
-    {
-        color: 'rgb(211, 84, 0)',
-        content: Slide6
-    },
-    {
-        color: '#beb8bb',
-        content: Slide7
-    }
 ];
 
 
  ;(function register() { /* react-hot-loader/webpack */ if (process.env.NODE_ENV !== 'production') { if (typeof __REACT_HOT_LOADER__ === 'undefined') { return; } if (typeof module.exports === 'function') { __REACT_HOT_LOADER__.register(module.exports, 'module.exports', "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/john/index.tsx"); return; } for (var key in module.exports) { if (!Object.prototype.hasOwnProperty.call(module.exports, key)) { continue; } var namedExport = void 0; try { namedExport = module.exports[key]; } catch (err) { continue; } __REACT_HOT_LOADER__.register(namedExport, key, "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/john/index.tsx"); } } })();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("../node_modules/node-libs-browser/node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./data/miles/image1.png":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "20de80ca667a3e6ff61bc01d65e651fc.png";
+
+/***/ }),
+
+/***/ "./data/miles/image2.png":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "923290191affaa2d6d737f5f1b263438.png";
+
+/***/ }),
+
+/***/ "./data/miles/image3.png":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "66fa00c8752f8f74fa804a7752c546c8.png";
+
+/***/ }),
+
+/***/ "./data/miles/index.tsx":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__("../node_modules/react/react.js");
+var Grid_1 = __webpack_require__("./Grid/index.tsx");
+var TextBox_1 = __webpack_require__("./TextBox/index.tsx");
+var ReadMore_1 = __webpack_require__("./ReadMore/index.tsx");
+var Overlay = function () { return (React.createElement("div", null,
+    React.createElement("p", null, "As a new and powerful weapon unlike any that the world had ever seen the atom bomb elicited strong responses from all around the world. For the countries directly involved in the creation and detonation of the A-bomb, namely the United States and Japan, there were intense feelings and sentiments coming from both sides about whether the bomb was necessary or not. In a United States public opinion poll from October of 1945, only two months after the bombs were dropped, 53.5% of Americans thought the bombs should have been used on two cities and another 23% took it further saying the United States should have used many more bombs before Japan even had the chance to surrender (Christy, May 5th). Only 4.5% of people thought the bombs should not have been used. "),
+    React.createElement("p", null, "   For Japan, if defeat at the hands of the United States wasn\u2019t humiliating enough the dropping of the atom bomb marked the end of an era for Japan, as their whole societal and political structure was changed after the bomb was dropped. This humiliation had the immediate reaction of hatred from many Japanese citizens and leaders. But slowly, Japan has allied itself with the United States and completely changed their agenda and national outlook. In either case, there were many different opinions coming from both United States and Japanese about whether the use of the atom bomb on Hiroshima and Nagasaki was necessary or not. These opinions depended primarily on one's own position and experience in relation to the war. "),
+    React.createElement("p", null, "In this section, I will focus on perspectives of military and political leaders from both sides, with a focus on the question: would Japan have still surrendered without the use of the atom bomb?"),
+    React.createElement("img", { src: __webpack_require__("./data/miles/image1.png") }),
+    React.createElement("p", null, "Henry H. Arnold was a five star general of the army during World War 2, and the unofficial general of the air force. Eventually, in 1947 a position was created for him as the general of the Air Force, a position that has never been filled again since his death in 1947. As such, Arnold\u2019s perspective is important as one of the most powerful U.S military leaders during the time of the decision to drop the bomb."),
+    React.createElement("p", null, " In The Third Report of the Commanding General of the Army Air Forces to the Secretary of War from November 1945 Arnold wrote about his perspectives concerning the necessity of the atom bomb and the role it played in Japan\u2019s defeat. He wrote that \u201CThe harnessing of atomic energy and its application at the climax of the Pacific war have tended to over- shadow a most important point. Even before one of our B-29's dropped its atomic bomb on Hiroshima. Japan's military situation was hopeless\u201D (Arnold, 33)."),
+    React.createElement("p", null, "Arnold believed that Japan had already been defeated even before the atomic bomb was dropped on Hiroshima on August 6 1945. He believed that they were ready to surrender. In his report to the secretary of war, Arnold outlined a map in which he showed the military decimation of Japanese cities from regular air strikes, bombings, and incendiary raids (Arnold, 36). The map estimates the percentage of how much of each city on it was destroyed by regular bombings, and concludes that Hiroshima and Nagasaki were just 2 cities added to a list of over 60. (Map Below, with citation.) Arnold supports his claim with statistics outlining the extent to which Japan was getting raided by Allied military forces, \u201CIn 1944 not more than 100 bombers attacked Japan in a single operation. In early August, 1945, 801 superfortresses were attacked in a single operation\u201D (Arnold, 37)."),
+    React.createElement("img", { src: __webpack_require__("./data/miles/image3.png") }),
+    React.createElement("p", null, "Henry Arnold was not the only military leader to suggest that the Atomic bomb was not necessarily used out of necessity. In fact, United States military leaders from all different branches had different opinions on why the bomb was used. Navy Admiral Chester Nimitz, for example, stated in an interview with the Washington press in October 1945 that \u201CThe Japanese had, in fact, already sued for peace before the atomic age was announced to the world with the destruction of Hiroshima and before the Russian entry into the war.\u201D (Long). The general consensus among American military leaders who had knowledge of the military situation in the Pacific, believed that Japanese surrender would have been inevitable even if the atomic bomb had not been a factor. David Joravsky, an infantryman fighting for the United States during the Pacific war who later became a history professor at Northwestern University argued that the bombs did not need to be dropped on cities (Fussell, 5). While the immediate response of the American public was in support of Truman's decision to drop the bomb, military leaders and those who studied the events leading up to Japanese surrender in the Pacific war believed that the bomb was dropped as an extra show of power by the United States. "),
+    React.createElement("img", { src: __webpack_require__("./data/miles/image2.png") }),
+    React.createElement("p", null, "Emperor Hirohito was seen as divine in Japan during the time of the Pacific war. Japan used this as propaganda to get citizens to resist foreigners in the war. It was one of the main reasons that the United States believed that every man woman and child in Japan was ready to fight til the death, because they believed that Hirohito\u2019s divinity commanded them to die for him. As a divine emperor, Hirohito had full control of his empire. Thus, it was his word that would ultimately decide if Japan was to surrender or not. "),
+    React.createElement("p", null, "While finally surrendering after the second atomic bomb was dropped on Nagasaki, Hirohito shared his thoughts on the surrender: \u201Cregrettably, I think that defeat is inevitable.\u201D (Christy, May 3rd). This decision however, unlike many narratives that have been told in the United States since the war ended, may not have been entirely prompted by the dropping of the atomic bomb. Hirohito also claimed in his surrender that there was a \u201Cconsiderable danger that the Soviet Union would eventually intervene in Japan's affairs\u201D if they did not surrender and focus on repelling the Soviets (Christy, May 3rd). The threat of communism, along with an overpowering military attack from the allies was enough for Japan to surrender as it was, the atomic bombs that were dropped on Hiroshima and Nagasaki only accelerated the process."),
+    React.createElement("p", null, "In 1965 historian gar alperovitz argued that \u201CJapan\u2019s leaders had wanted to surrender anyway and likely would have done so before the american invasion planned for nov. 1\u201D (Ward). If anything, the United States was waiting for Hirohito to surrender without causing any more bloodshed to American soldiers. When they believed that he was too prideful to surrender, they decided in one of the more ruthless moves of the war to drop the atomic bomb not only on Japanese military bases and soldiers, but on cities with civilians living in them. The necessity of this act was questionable, with most historical signs and perspectives pointing toward the move being made primarily to show the might of the United States military."))); };
+var Slide1 = function (_a) {
+    var onReadMore = _a.onReadMore;
+    return (React.createElement(Grid_1.Grid, null,
+        React.createElement(Grid_1.Col, { width: 2 },
+            React.createElement(Grid_1.Row, { height: 2 },
+                React.createElement(TextBox_1.TextBox, { size: 1 },
+                    React.createElement("p", null, "As a new and powerful weapon unlike any that the world had ever seen the atom bomb elicited strong responses from all around the world. For the countries directly involved in the creation and detonation of the A-bomb, namely the United States and Japan, there were intense feelings and sentiments coming from both sides about whether the bomb was necessary or not."),
+                    React.createElement(ReadMore_1.ReadMore, { onClick: onReadMore }))),
+            React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/miles/image1.png") })),
+        React.createElement(Grid_1.Col, { width: 2 },
+            React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/miles/image2.png") }),
+            React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/miles/image3.png") }))));
+};
+exports.milesData = [
+    {
+        color: '#EB974E',
+        content: Slide1,
+        overlay: Overlay
+    },
+];
+
+
+ ;(function register() { /* react-hot-loader/webpack */ if (process.env.NODE_ENV !== 'production') { if (typeof __REACT_HOT_LOADER__ === 'undefined') { return; } if (typeof module.exports === 'function') { __REACT_HOT_LOADER__.register(module.exports, 'module.exports', "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/miles/index.tsx"); return; } for (var key in module.exports) { if (!Object.prototype.hasOwnProperty.call(module.exports, key)) { continue; } var namedExport = void 0; try { namedExport = module.exports[key]; } catch (err) { continue; } __REACT_HOT_LOADER__.register(namedExport, key, "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/miles/index.tsx"); } } })();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("../node_modules/node-libs-browser/node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./data/monica/image1.jpg":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "797ea65320d0393d03059b34bc8284ed.jpg";
+
+/***/ }),
+
+/***/ "./data/monica/image2.jpg":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "5a4329d4ada8e190eb8bdd8064b279f5.jpg";
+
+/***/ }),
+
+/***/ "./data/monica/image3.jpg":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "516d7f6be6e454a19d99d8d636d292c1.jpg";
+
+/***/ }),
+
+/***/ "./data/monica/image4.jpg":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "a70e0a1a32d48ddf718ef7102e1c55cd.jpg";
+
+/***/ }),
+
+/***/ "./data/monica/image5.jpg":
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "3555a8e227bdfaa64a1deee743f3f2e3.jpg";
+
+/***/ }),
+
+/***/ "./data/monica/index.tsx":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__("../node_modules/react/react.js");
+var Grid_1 = __webpack_require__("./Grid/index.tsx");
+var TextBox_1 = __webpack_require__("./TextBox/index.tsx");
+var ReadMore_1 = __webpack_require__("./ReadMore/index.tsx");
+var Slide1 = function (_a) {
+    var onReadMore = _a.onReadMore;
+    return (React.createElement(Grid_1.Grid, null,
+        React.createElement(Grid_1.Col, { width: 4 },
+            React.createElement(Grid_1.Row, { height: 1 },
+                React.createElement(Grid_1.Grid, null,
+                    React.createElement(Grid_1.Col, { width: 3 },
+                        React.createElement(TextBox_1.TextBox, { size: 3, subTitle: "Tanichigi " },
+                            React.createElement("i", null, "\u201CThe word \u2018peaceful\u2019 is used to make everything acceptable. The atomic bomb is the destroyer of peace\u201D"))),
+                    React.createElement(Grid_1.Col, { width: 1 },
+                        React.createElement(TextBox_1.TextBox, null,
+                            React.createElement(ReadMore_1.ReadMore, { onClick: onReadMore }))))),
+            React.createElement(Grid_1.Row, { height: 3 },
+                React.createElement(Grid_1.Grid, null,
+                    React.createElement(Grid_1.Col, { width: 2 },
+                        React.createElement(Grid_1.Row, { height: 4, img: __webpack_require__("./data/monica/image1.jpg") })),
+                    React.createElement(Grid_1.Col, { width: 2 },
+                        React.createElement(Grid_1.Row, { height: 4, img: __webpack_require__("./data/monica/image2.jpg") })))))));
+};
+var Overlay1 = function () { return (React.createElement("div", null,
+    React.createElement("p", null, "Taniguchi Sumiteru: sixteen years old at the time of the bombing in Nagasaki, was working the night shift at Michino-o- Post Office. Mother passed away at the age of 1, father had to leave to work after as a train engineer. Was left under the care of his grandparents along with his older brother and sister. Worked at age 14 to provide the extra income, was small.(32-33). At the time of the blast, Taniguchi was on the northern side of the explosion. Taniguchi was riding his bike making deliveries. A mile from the hypocenter, Taniguchi was thrown to the ground by the shaking of the ground caused by the bomb. Children who were previously playing now laid died on the ground. Taniguchi right hand was seared black, from his fingertips to his shoulders the skin of his left arm was melted and hanging. His left leg was badly burned, not feeling any pain he felt his back. His black was covered with charred, melted skin, and with black slimy. \u201CI did not feel any pain, and there was not a single drop of blood\u201D, he stated. Wanting to survive, Taniguchi walked until he collapsed closed to a factory and a woman came to his aid. She cut off his hanging skin and applied machine oil on his back from lack of medical treatment. He was soon carried by men up to a hill and stayed there under the burning sun and heat waves for the rest of the day. Taniguchi grandfather spent a week looking for him until they were finally reunited, they both went by train to Ishaya where Taniguchi received aid. Within a week his back began to rot and would fall off, he began to experience pain and his wounds began to bleed. Taniguchi and other Nagasaki families received financial and physical support from the Wartime Casualties Care Law until October, they would then have to pay their own expenses."),
+    React.createElement("p", null, "After the war, in the early 1950s Taniguchi tried to live a normal life. He had a strong anger for both Japan and the United States. Shame of his scars, Taniguchi would cover them with clothes until a company-sponsored swimming outing. For the first time, and enjoyed by a co-worker he took off his shirt but covered himself with a towel because he felt embarrassed. He wanted his them to know about the atomic bomb and about the war. Taniguchi would shortly begin to tell his story to strangers and had his first public speaking engagement was at the invitation of the Japan. His survival began to mean something to him \u201Cat the moment, I realized that I must live on behalf of those who died unwillingly\u201D. Joining two groups and later becoming the Nagasaki Atomic Bomb Youth Association in 1956, members were children or teenagers at the time of the bombing. Taniguchi had a privatized company Dendenkousha (Nippon Telegraph and Telephone Public Corporation), his company offered medical benefits for workers who were injured while at work at the time of the atomic bombing. Taniguchi had to provide that his injuries were caused by the bombing, he went to the Omura National Hospital, where he was located, to find his records. He found his records at a storage area, his records were the only hibakusha records found in the hospital. In 1960, doctors extracted a skin cancer growth in his back. He has later diagnosed with chronic blood disorder, his tumor was finally removed after numerous surgeries."),
+    React.createElement("p", null, " Taniguchi goes to major cities and around the country to promote no more nuclear weapons. At the age of 85, Taniguchi suffers from constant pain, and many health problems. His post-bedsore in his chest are deep that his heartbeat is visible. He has nearly lost vision from one eye. Although retired, Taniguchi helps survivors understand the law and help them to receive help benefits from the government, claiming the law is hard to understand. Taniguchi continues to have anger towards Japan for attacking Pearl Harbor and for never satisfactorily apologizing."),
+    React.createElement("div", { style: { display: 'flex' } },
+        React.createElement("img", { src: __webpack_require__("./data/monica/image1.jpg") }),
+        React.createElement("img", { src: __webpack_require__("./data/monica/image2.jpg") })),
+    React.createElement("p", null, "The above images are of Taniguchi Sumiteru, the photo to the left was the current photo of Sumiteru. There are visible skin burn scars and on his heartbeat will is visible as well. The photo to the right was taken during one of his talks holding a photo of himself days after the blast. "),
+    React.createElement("p", null, "On August 9, 1945 16 year old Taniguchi Sumiteru was riding his bike to make a delivery. A mile from the hypocenter, Taniguchi was thrown to the ground by the shaking of the ground caused by the bomb. Taniguchi right hand was seared black, from his fingertips to his shoulders the skin of his left arm was melted and hanging. His left leg was badly burned, not feeling any pain he felt his back. His black was covered with charred, melted skin, and with black slimy. \u201CI did not feel any pain, and there was not a single drop of blood\u201D, he stated. His grandfather found him a week after the blast, both traveled by train to Ishya. There Taniguchi was received aid. Within a week his back began to rot and would fall off, he began to experience pain and his wounds began to bleed. Taniguchi and other Nagasaki families received financial and physical support from the Wartime Casualties Care Law until October, they would then have to pay their own expenses. Five years after the blast, Taniguchi tried to live a normal life but he had a strong anger for both Japan and the United States. Until a company-sponsors swimming outing was the first time Taniguchi did not cover his scars, but eventually hide his scars with his towel. His survival began to mean something to him \u201Cat the moment, I realized that I must live on behalf of those who died unwillingly\u201D. Joining two groups and later becoming the Nagasaki Atomic Bomb Youth Association in 1956, members were children or teenagers at the time of the bombing. Trying to find proof his scars were caused by the attack bomb in Nagasaki, Taniguchi went back to Omura National Hospital to find his records. He was the only hibakusha records found in the hospital. It is suspected the hospital destroyed records or moved them around Japan.  In 1960, doctors extracted a skin cancer growth in his back. He has later diagnosed with chronic blood disorder, his tumor was finally removed after numerous surgeries. At the age of 85, Taniguchi suffers from constant pain, and many health problems. His post-bedsore in his chest are deep that his heartbeat is visible. He has nearly lost vision from one eye. Taniguchi continues to have anger towards Japan for attacking Pearl Harbor and for never satisfactorily apologizing."),
+    React.createElement("p", null, "Capt. Shields Warren of the Navy Medical Corps declared in a meeting of the American Association for Cancer Research in Atlantic City, people from Hiroshima and Nagasaki must be studied for many years to determine the range of the atomic bombing on their blood is resistant to disease and if they have the ability to have children. Warren and his group found immediate effects on radiation injuries. It was found that people died three weeks from the blast, their deaths were caused by hemorrhage. This was happened from radiation damage to certain cells of the bone marrow. \u201Cthose with serious bone marrow damage who weathered the first few weeks developed anemia later with red blood cells counts in some dropping to as low as 1,000,000 or less which is less than one-fourth the normal\u201D. The death rates would have been different if people were given repeated blood transfusions and penicillin to control the infections during the period of white blood cell anemia."),
+    React.createElement("p", null, "Park Cha Jom(the a-bomb disease I didn't know) parents were from Korea but her father was forced to live in Japan. Narrator was born in Japan, and lived in Hiroshima with parents and 5 other siblings. She went to nursing school and was working as a nurse assistant at the time of the bomb. She saw when the bomb was coming down from the sky but first thought it was an airplane. She was knocked out from the impact of the hit and was shortly awaken by a soldier saying fire was heading their direction. Her head was bloody, the left leg was swollen and also bloody. She was taken to the pier with other injured, and had not heard from family until several days when her sister came looking for her. One of her sisters was missing, the family wanted three months until the narrator and her parents returned to Korea. In Korea they were discriminated by families members and people that noticed or knew they had come back to Korea after the atomic bombing in Hiroshima. Many Koreans would call them \u201Coay nom\u201D meaning Japanese dog, years later she married twice. The first marriage failed possibly from her being a victim of the atomic bombs and felt terrible from the remakes she would receive from her husband and his family. While in her second marriage, her husband knew she was suffering from a disease and was in Hiroshima at the time of the bombing, her marriage failed due to the constant diseases she would be suffering and felt that she couldn\u2019t stay with her husband anymore. The narrator eventually found out the disease she was suffering from was A-bomb disease. Her two children from her second marriage also fell victims from A-Bomb disease. Many survivors were dying from this disease, the Japanese government took no action. The narrator volunteers at the A-Bomb Association were they visit homes of patients. She demands the Japanese government appropriately compensate Korean victims of the A-bomb."),
+    React.createElement("p", null, "Park Cha Jom(the a-bomb disease I didn't know) parents were from Korea but her father was forced to live in Japan. She went to nursing school and was working as a nurse assistant at the time of the bomb. She saw when the bomb was coming down from the sky but first thought it was an airplane. Her head was bloody, the left leg was swollen and also bloody. She was awaken by soldiers and was taken to a pier with other injured. One of her sister was missing, after three months her parents and herself moved to Korea. There they were discriminated by families members and people that noticed or knew they had come back to Korea after the atomic bombing in Hiroshima. Many Koreans would call them \u201Coay nom\u201D meaning Japanese dog. Throughout her life she was constantly suffering from an unknown diseases, causing her to have two failed marriages. The narrator eventually found out the disease she was suffering from was A-bomb disease. Her two children from her second marriage also fell victims from A-Bomb disease. Many survivors were dying from this disease, the Japanese government took no action."))); };
+var Slide2 = function () { return (React.createElement(Grid_1.Grid, null,
+    React.createElement(Grid_1.Col, { width: 4 },
+        React.createElement(Grid_1.Row, { height: 1 },
+            React.createElement(TextBox_1.TextBox, null, "woman was underneath a concrete block, she cried for help. Four or five people came to her aid but were not able to lift it off of her. They asked for forgiveness and left her there (3)8:30am")),
+        React.createElement(Grid_1.Row, { height: 3, img: __webpack_require__("./data/monica/image5.jpg") })))); };
+var Slide3 = function () { return (React.createElement(Grid_1.Grid, null,
+    React.createElement(Grid_1.Col, { width: 2 },
+        React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/monica/image3.jpg") }),
+        React.createElement(Grid_1.Row, { height: 2 },
+            React.createElement(TextBox_1.TextBox, null, "mother, possibly dead, entire back was burn but no injuries in the front. Had a baby on her breast, sucking milk out of them. Can be said that she was on top of the body so it wouldn\u2019t get hurt, baby was unburned. Mother was unconscious and viewer was scared she\u2019ll die soon and the milk will stop and baby would die. Aug. 7 3:30pm"))),
+    React.createElement(Grid_1.Col, { width: 2 },
+        React.createElement(Grid_1.Row, { height: 2 },
+            React.createElement(TextBox_1.TextBox, null, "Kazuo Akiyama age 66) survivors of the A-bomb were badly burned all over bodies. They were naked and their skin had come off, they suffered pain through the burns. Wander looking for parents, children, and spouses.")),
+        React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/monica/image4.jpg") })))); };
+exports.monicaData = [
+    {
+        color: '#EC644B',
+        content: Slide1,
+        overlay: Overlay1
+    },
+    {
+        color: '#663399',
+        content: Slide2
+    },
+    {
+        color: '#87D37C',
+        content: Slide3
+    }
+];
+
+
+ ;(function register() { /* react-hot-loader/webpack */ if (process.env.NODE_ENV !== 'production') { if (typeof __REACT_HOT_LOADER__ === 'undefined') { return; } if (typeof module.exports === 'function') { __REACT_HOT_LOADER__.register(module.exports, 'module.exports', "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/monica/index.tsx"); return; } for (var key in module.exports) { if (!Object.prototype.hasOwnProperty.call(module.exports, key)) { continue; } var namedExport = void 0; try { namedExport = module.exports[key]; } catch (err) { continue; } __REACT_HOT_LOADER__.register(namedExport, key, "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/monica/index.tsx"); } } })();
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("../node_modules/node-libs-browser/node_modules/process/browser.js")))
 
 /***/ }),
@@ -37853,6 +38187,7 @@ var React = __webpack_require__("../node_modules/react/react.js");
 var Grid_1 = __webpack_require__("./Grid/index.tsx");
 var TextBox_1 = __webpack_require__("./TextBox/index.tsx");
 var Background_1 = __webpack_require__("./Background/index.tsx");
+var ReadMore_1 = __webpack_require__("./ReadMore/index.tsx");
 var TitleSlide = function () { return (React.createElement(TextBox_1.TextBox, { size: 10, subTitle: "Sequoia Snow, Monica Pizano, Daphne White, John Harris, Miles Dalton", center: true }, "The Atomic Bomb")); };
 var Slide1 = function () { return (React.createElement(Grid_1.Grid, null,
     React.createElement(Grid_1.Col, { width: 2 },
@@ -37876,13 +38211,18 @@ var Slide2 = function () { return (React.createElement("div", null,
                 React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/sequoia/szilard.jpg") })))),
     React.createElement(TextBox_1.TextBox, { size: 1, full: true },
         React.createElement("p", null, "Albert Einstein\u2019s letter to President Roosevelt remained one of Einstein\u2019s greatest struggles until his death. It is in this letter that the greatest physicist in the twentieth century argues that the Atomic Bomb is a credible threat from Germany. That it must be countered, and should it be necessary used to prevent and Axis victory. It was the theory Einstein developed and proved, E = MC^2 , which hinted at the possibility of a nuclear bomb, at it was his letter to Roosevelt which prompted interest into what would become the Manhattan Project. It is this impact, and the subsequent shaping of the cold war that led Time magazine to name Albert Einstein the most influential person in the twentieth century.")))); };
-var Slide3 = function () { return (React.createElement("div", null,
-    React.createElement(TextBox_1.TextBox, { size: 1 },
-        React.createElement("h1", null, "The Manhatten Project"),
-        React.createElement("p", null, "The Manhattan Project was centered around two primary issues, attaining fissionable material and creating a device that could cause a chain reaction with that material. The first proved the most difficult of the two to perform in any quantity. Like much of the Manhattan project, there was the issue of turning bleeding edge scientific discoveries into practical industrial projects. Originally there were four proposed methods of Uranium refinement studied by the so called Uranium Committee set up by the president after the Einstein letter. This morphed into the National Defense Research Committee which was a purely scientific body without military attachment. It was during this time that Glenn Seaborg identified the element plutonium as a possible alternative to Ernest Lawrence\u2019s work on Uranium. In 1940 the United States was given intelligence concerning fission by the British in the so-called MAUD report which confirmed some assumptions about a sustainable fission reaction in Uranium-235. Furthermore it illustrated that the discovery of fission had occurred three years earlier in Germany, a discovery which prompted increased urgency in the project."),
-        React.createElement("p", null, "It is at this point important to note that the German\u2019s were at the time pursuing an Atom Bomb project of their own, under the guidance of the Werner Heisenberg. While Hitler discontinued interest in the project after learning of the required time and funding, it is notable that some later research and atomic occurred by the German scientists working on this project. Heisenberg\u2019s own uncertainty principle was of paramount importance in creating the atomic bomb."),
-        React.createElement("p", null, "After the MAUD report, the research into nuclear weapons was transferred to the military under the direction Colonel Leslie Groves, who was given the rank of Brigadier General after receiving the project. This was the beginning of the Manhattan Project in its colloquial sense. At the time much land was bought for the creation of a scientific development community in Los Alamos headed by Robert Oppenheimer as well as a Uranium refinery plant in Oak Ridge Tennessee. The goal of Oak Ridge was the development of enriched uranium-235 as well as plutonium, the former coming from an electromagnetic method devised by Lawrence. It was during this time that 15,000 tons of silver bullion from the United States Treasury was melted down for wires due to a shortage of copper.")))); };
-var Slide4 = function () { return (React.createElement(Background_1.Background, { img: __webpack_require__("./data/sequoia/trinity.jpg") })); };
+var Slide3 = function (_a) {
+    var onReadMore = _a.onReadMore;
+    return (React.createElement("div", null,
+        React.createElement(Background_1.Background, { img: __webpack_require__("./data/sequoia/trinity.jpg") }),
+        React.createElement(TextBox_1.TextBox, { full: true },
+            React.createElement(ReadMore_1.ReadMore, { onClick: onReadMore }))));
+};
+var Overlay = function () { return (React.createElement("h1", null,
+    React.createElement("h1", null, "The Manhatten Project"),
+    React.createElement("p", null, "The Manhattan Project was centered around two primary issues, attaining fissionable material and creating a device that could cause a chain reaction with that material. The first proved the most difficult of the two to perform in any quantity. Like much of the Manhattan project, there was the issue of turning bleeding edge scientific discoveries into practical industrial projects. Originally there were four proposed methods of Uranium refinement studied by the so called Uranium Committee set up by the president after the Einstein letter. This morphed into the National Defense Research Committee which was a purely scientific body without military attachment. It was during this time that Glenn Seaborg identified the element plutonium as a possible alternative to Ernest Lawrence\u2019s work on Uranium. In 1940 the United States was given intelligence concerning fission by the British in the so-called MAUD report which confirmed some assumptions about a sustainable fission reaction in Uranium-235. Furthermore it illustrated that the discovery of fission had occurred three years earlier in Germany, a discovery which prompted increased urgency in the project."),
+    React.createElement("p", null, "It is at this point important to note that the German\u2019s were at the time pursuing an Atom Bomb project of their own, under the guidance of the Werner Heisenberg. While Hitler discontinued interest in the project after learning of the required time and funding, it is notable that some later research and atomic occurred by the German scientists working on this project. Heisenberg\u2019s own uncertainty principle was of paramount importance in creating the atomic bomb."),
+    React.createElement("p", null, "After the MAUD report, the research into nuclear weapons was transferred to the military under the direction Colonel Leslie Groves, who was given the rank of Brigadier General after receiving the project. This was the beginning of the Manhattan Project in its colloquial sense. At the time much land was bought for the creation of a scientific development community in Los Alamos headed by Robert Oppenheimer as well as a Uranium refinery plant in Oak Ridge Tennessee. The goal of Oak Ridge was the development of enriched uranium-235 as well as plutonium, the former coming from an electromagnetic method devised by Lawrence. It was during this time that 15,000 tons of silver bullion from the United States Treasury was melted down for wires due to a shortage of copper."))); };
 exports.sequoiaData = [
     { color: '#f19b2c',
         content: TitleSlide
@@ -37896,12 +38236,9 @@ exports.sequoiaData = [
         content: Slide2
     },
     {
-        color: 'rgb(41, 128, 185)',
-        content: Slide3
-    },
-    {
         color: 'rgb(231, 76, 60)',
-        content: Slide4
+        content: Slide3,
+        overlay: Overlay
     }
 ];
 
