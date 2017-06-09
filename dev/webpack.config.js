@@ -67,7 +67,7 @@ const config = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: ['react-hot-loader/webpack','ts-loader'],
+        use: isDebug ? ['react-hot-loader/webpack','ts-loader'] : 'ts-loader',
         include: SRC_DIR,
         exclude: /node_modules/
       },
@@ -95,7 +95,7 @@ const config = {
    * bundle or even allowing more complex behaviors like fetch and promises.
    */
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
+    (isDebug ? new webpack.HotModuleReplacementPlugin() : null),
     new Visualizer({ filename: 'statistics.html' }), 
     new ExtractTextPlugin('the.css'),
     new CopyWebpackPlugin([{
@@ -104,7 +104,7 @@ const config = {
     }]),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
-  ], 
+  ].filter((p) => p), 
 
   /**
    * Stats allow some more pretty compilation information to show.

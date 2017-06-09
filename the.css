@@ -101,15 +101,15 @@
 .spiral__elem:not(.spiral__elem--selected) .elem__content:hover {
       border-radius: 16.2%; }
 
-@media screen and (max-width: 800px) {
-  .spiral__elem {
-    width: 100vw;
-    height: 100vw;
-    -webkit-transform-origin: 27.63vw 117.09731vw;
-            transform-origin: 27.63vw 117.09731vw; }
-  .spiral__container {
-    -webkit-transform-origin: 27.63vw 117.09731vw;
-            transform-origin: 27.63vw 117.09731vw; } }
+.spiral--mobile .spiral__elem {
+  width: 100vw;
+  height: 100vw;
+  -webkit-transform-origin: 27.63vw 117.09731vw;
+          transform-origin: 27.63vw 117.09731vw; }
+
+.spiral--mobile .spiral__container {
+  -webkit-transform-origin: 27.63vw 117.09731vw;
+          transform-origin: 27.63vw 117.09731vw; }
 
 body {
   background-color: #110f12; }

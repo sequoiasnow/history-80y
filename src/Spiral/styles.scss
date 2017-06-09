@@ -50,7 +50,7 @@ $spiral-transform-origin:  72.37vw (.7237 * .618033 * 100vw);
   }
 }
 
-@media screen and (max-width: 800px) {
+.spiral--mobile {
   $spiral-transform-origin: ( ( 1- .7237 ) * 100vw ) (.7237 / .618033 * 100vw);
   .spiral__elem {
     width: 100vw;

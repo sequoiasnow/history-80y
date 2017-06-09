@@ -35,7 +35,8 @@ interface SpiralState {
   touchStart: {
     x: number,
     y: number
-  }
+  },
+  mobile: boolean
 }
 
 /**
@@ -50,10 +51,23 @@ export class Spiral extends React.Component<SpiralProps, SpiralState> {
    */ 
   componentDidMount() {
     $(window).mousewheel(this._onWheel)
+    window.addEventListener('resize', this._onResize)
     this._spiral.addEventListener('touchstart', this._onTouchStart)
     this._spiral.addEventListener('touchmove', this._onTouchMove)
-    this._spiral.addEventListener('touchend', this._onTouchEnd)
+    this._spiral.addEventListener('touchend', this._onTouchEnd) 
     document.body.addEventListener('keyup', this._onKeyDown)
+    this._onResize()
+  }
+
+  /**
+   * Checks if the screen is mobile or not.
+   */
+  private _onResize(): void {
+    if ( window.innerHeight > window.innerWidth ) {
+      this.setState({ mobile: true })
+    } else {
+      this.setState({ mobile: false })
+    }
   } 
 
   /**
@@ -159,7 +173,7 @@ export class Spiral extends React.Component<SpiralProps, SpiralState> {
   
   constructor(props: SpiralProps) {
     super(props)
-    this.state = { angle: 0, touchStart: { x: 0, y: 0 }, pause: false }
+    this.state = { angle: 0, touchStart: { x: 0, y: 0 }, pause: false, mobile: false }
     this._onWheel = this._onWheel.bind(this)
     this._move = this._move.bind(this)
     this._animate = this._animate.bind(this)
@@ -167,17 +181,19 @@ export class Spiral extends React.Component<SpiralProps, SpiralState> {
     this._onTouchStart = this._onTouchStart.bind(this)
     this._onTouchMove = this._onTouchMove.bind(this)
     this._onTouchEnd = this._onTouchEnd.bind(this)
+    this._onResize = this._onResize.bind(this)
   }
 
   public render() {
     // Which spiral have we currently selected.
-    const { angle } = this.state
+    const { angle, mobile } = this.state
     const scale = Math.pow(aspect, angle / 90)
     const index = Math.floor(angle / -90)
     const transform = `rotate(${angle}deg) scale(${scale}) translate3d(0px, 0px, 0px)`
     return (
       <div>
-        <section className="spiral" ref={(r) => this._spiral = r}> 
+        <section className={cn('spiral', { 'spiral--mobile': mobile })}
+                 ref={(r) => this._spiral = r}> 
           <div className="spiral__overlay" /> 
           <div className="spiral__container" style={{transform}}>
             {this.props.pages.map((page: SpiralPane, i: number) => {
