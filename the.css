@@ -101,7 +101,7 @@
 .spiral__elem:not(.spiral__elem--selected) .elem__content:hover {
       border-radius: 16.2%; }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 800px) {
   .spiral__elem {
     width: 100vw;
     height: 100vw;
