@@ -59,7 +59,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "948797fd213437b3be9a"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "5fc7eab236f2fe2a3706"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
@@ -37510,7 +37510,8 @@ var Overlay = (function (_super) {
     Overlay.prototype.render = function () {
         return (React.createElement("div", { className: "overlay" },
             React.createElement("div", { className: "overlay__close", onClick: this.props.onClose }),
-            React.createElement("div", { className: "overlay__content" }, this.props.children)));
+            React.createElement("div", { className: "overlay__content" }, this.props.children),
+            React.createElement("div", { className: "overlay__close", onClick: this.props.onClose })));
     };
     return Overlay;
 }(React.Component));
@@ -37826,7 +37827,12 @@ var john_1 = __webpack_require__("./data/john/index.tsx");
 var miles_1 = __webpack_require__("./data/miles/index.tsx");
 var daphne_1 = __webpack_require__("./data/daphne/index.tsx");
 var monica_1 = __webpack_require__("./data/monica/index.tsx");
-exports.pages = sequoia_1.sequoiaData.concat(john_1.johnData, monica_1.monicaData, miles_1.milesData, daphne_1.daphneData);
+var sources_1 = __webpack_require__("./data/sources.tsx");
+var vanity_1 = __webpack_require__("./data/vanity.tsx");
+exports.pages = sequoia_1.sequoiaData.concat(john_1.johnData, monica_1.monicaData, miles_1.milesData, daphne_1.daphneData, [
+    sources_1.sourceSlide,
+    vanity_1.vanitySlide
+]);
 
 
  ;(function register() { /* react-hot-loader/webpack */ if (process.env.NODE_ENV !== 'production') { if (typeof __REACT_HOT_LOADER__ === 'undefined') { return; } if (typeof module.exports === 'function') { __REACT_HOT_LOADER__.register(module.exports, 'module.exports', "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/index.tsx"); return; } for (var key in module.exports) { if (!Object.prototype.hasOwnProperty.call(module.exports, key)) { continue; } var namedExport = void 0; try { namedExport = module.exports[key]; } catch (err) { continue; } __REACT_HOT_LOADER__.register(namedExport, key, "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/index.tsx"); } } })();
@@ -38186,15 +38192,11 @@ var ReadMore_1 = __webpack_require__("./ReadMore/index.tsx");
 var TitleSlide = function () { return (React.createElement(TextBox_1.TextBox, { size: 10, subTitle: "Sequoia Snow, Monica Pizano, Daphne White, John Harris, Miles Dalton", center: true }, "The Atomic Bomb")); };
 var Slide1 = function () { return (React.createElement(Grid_1.Grid, null,
     React.createElement(Grid_1.Col, { width: 2 },
-        React.createElement(Grid_1.Row, { height: 3, img: __webpack_require__("./data/sequoia/einstein.jpg") }),
-        React.createElement(Grid_1.Row, { height: 1 },
-            React.createElement(TextBox_1.TextBox, { size: 3 },
-                React.createElement("p", null, "\u201CIt may be possible to set up a nuclear chain reaction\u201D")))),
+        React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/sequoia/einstein.jpg") }),
+        React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/sequoia/oppenheimer.jpg") })),
     React.createElement(Grid_1.Col, { width: 2 },
-        React.createElement(Grid_1.Row, { height: 2 },
-            React.createElement(TextBox_1.TextBox, { size: 1 },
-                React.createElement("p", null, "The Manhattan Project marked one of the first research projects which was scientifically driven, and would become the origin of the scientific communities influence in weapons development throughout the cold war. It is notable that the Manhattan project could not exist without Albert Einstein and the discovery of fission by Lise Meitner and Otto Frisch."))),
-        React.createElement(Grid_1.Row, { height: 2, img: __webpack_require__("./data/sequoia/oppenheimer.jpg") })))); };
+        React.createElement(TextBox_1.TextBox, { size: 1 },
+            React.createElement("p", null, "The Atomic Bomb. It is a force of terror, to some a liberator from near death, to others the delivery of the same fate. The impact of this device, the \u201Cgadget\u201D that shaped the twentieth century can not be overstated. Never before in history has mankind possessed the power to destroy the very planet upon which we live. But where did this device come from, from great and terrible deeds of soldiers and war minded conquerors, no. It came from figures once thought inconsequential, a patent clerk working hard to keep his family afloat, who dappled in physics, Albert Einstein. It came from one of the first renowned female physicists Lise Meitner who happened to discuss a topic with her nephew Otto Frisch while escaping the Nazis. It came from a scientist who had such severe allergies he was sent to a remote island where he came up with the uncertainty principle that is the cornerstone of quantum mechanics, Werner Heisenberg. It came from a host of people, seemingly insignificant at the time, who came to reshape the world with the creation of one device."))))); };
 var Slide2 = function () { return (React.createElement("div", null,
     React.createElement(Background_1.Background, { img: "" },
         React.createElement(Grid_1.Grid, null,
@@ -38213,13 +38215,16 @@ var Slide3 = function (_a) {
         React.createElement(TextBox_1.TextBox, { full: true },
             React.createElement(ReadMore_1.ReadMore, { onClick: onReadMore }))));
 };
-var Overlay = function () { return (React.createElement("h1", null,
+var Overlay = function () { return (React.createElement("div", null,
     React.createElement("h1", null, "The Manhatten Project"),
     React.createElement("p", null, "The Manhattan Project was centered around two primary issues, attaining fissionable material and creating a device that could cause a chain reaction with that material. The first proved the most difficult of the two to perform in any quantity. Like much of the Manhattan project, there was the issue of turning bleeding edge scientific discoveries into practical industrial projects. Originally there were four proposed methods of Uranium refinement studied by the so called Uranium Committee set up by the president after the Einstein letter. This morphed into the National Defense Research Committee which was a purely scientific body without military attachment. It was during this time that Glenn Seaborg identified the element plutonium as a possible alternative to Ernest Lawrence\u2019s work on Uranium. In 1940 the United States was given intelligence concerning fission by the British in the so-called MAUD report which confirmed some assumptions about a sustainable fission reaction in Uranium-235. Furthermore it illustrated that the discovery of fission had occurred three years earlier in Germany, a discovery which prompted increased urgency in the project."),
     React.createElement("p", null, "It is at this point important to note that the German\u2019s were at the time pursuing an Atom Bomb project of their own, under the guidance of the Werner Heisenberg. While Hitler discontinued interest in the project after learning of the required time and funding, it is notable that some later research and atomic occurred by the German scientists working on this project. Heisenberg\u2019s own uncertainty principle was of paramount importance in creating the atomic bomb."),
-    React.createElement("p", null, "After the MAUD report, the research into nuclear weapons was transferred to the military under the direction Colonel Leslie Groves, who was given the rank of Brigadier General after receiving the project. This was the beginning of the Manhattan Project in its colloquial sense. At the time much land was bought for the creation of a scientific development community in Los Alamos headed by Robert Oppenheimer as well as a Uranium refinery plant in Oak Ridge Tennessee. The goal of Oak Ridge was the development of enriched uranium-235 as well as plutonium, the former coming from an electromagnetic method devised by Lawrence. It was during this time that 15,000 tons of silver bullion from the United States Treasury was melted down for wires due to a shortage of copper."))); };
+    React.createElement("p", null, "After the MAUD report, the research into nuclear weapons was transferred to the military under the direction Colonel Leslie Groves, who was given the rank of Brigadier General after receiving the project. This was the beginning of the Manhattan Project in its colloquial sense. At the time much land was bought for the creation of a scientific development community in Los Alamos headed by Robert Oppenheimer as well as a Uranium refinery plant in Oak Ridge Tennessee. The goal of Oak Ridge was the development of enriched uranium-235 as well as plutonium, the former coming from an electromagnetic method devised by Lawrence. It was during this time that 15,000 tons of silver bullion from the United States Treasury was melted down for wires due to a shortage of copper."),
+    React.createElement("p", null, "At this point that the Manhattan project devolved into an issue of logistics and construction, while the racetracks for enriching uranium were constructed, and often overhauled do to new findings or existing difficulties. The plutonium pile was moved to the Oak Ridge facility to take advantage of existing plants that could be transferred from some the of the failed accelerators. There is much that can be said of the industry present in this development, the thousands who worked to build and monitor equipment, yet the most important work of the time occurred not at the heart of industry but development in Los Alamos. "),
+    React.createElement("p", null, "It was at Los Alamos that the first scientists were killed by radioactive poisoning. It was at Los Alamos that it was almost decided to stop the atom bomb development for fear of igniting the atmosphere and destroying the world. And it was at Los Alamos that the manhattan project was completed and \u201Cthe gadget\u201D developed to be detonated in New Mexico. It was also at this point that the scientists of the project presented opposing viewpoints on the use of the bomb were first presented, namely by Lawrence and Salizard."),
+    React.createElement("p", null, "Oppenheimer was famously quoted saying \u201CI have become death, the destroyer of worlds\u201D upon the detonation of the atomic bomb at Trinity New Mexico, a title which haunted him in the years that followed. Like so many of the nuclear scientist he struggled with the guilt of the victims of the atomic bomb, as well as the fear, ever present at the time, that because of his work the world could face complete annihilation. Albert Einstein famously stated \u201CI made one great mistake in my life \u2013 when I signed the letter to President Roosevelt recommending the Atomic Bombs be made.\u201D In Oppenheimer's farewell speech to the scientists of Los Alamos he warns of the need for a new diplomacy, of a world without war because the cost of conflict is now to high. It is clear that the impact of the bomb changed many of his views of the world, as it did many scientists. The stark reminder of the possibility of a nuclear holocaust and ever present cloud that hung over the success of the Manhattan project, a project that won a war and began another."))); };
 exports.sequoiaData = [
-    { color: '#f19b2c',
+    { color: '#ef4836',
         content: TitleSlide
     },
     {
@@ -38275,6 +38280,91 @@ module.exports = __webpack_require__.p + "e9bdc6208d7df72462dac54e766cc2d2.jpg";
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "4a0fd6e576ab039f38c4f54dc9bba8be.jpg";
+
+/***/ }),
+
+/***/ "./data/sources.tsx":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__("../node_modules/react/react.js");
+var Grid_1 = __webpack_require__("./Grid/index.tsx");
+var TextBox_1 = __webpack_require__("./TextBox/index.tsx");
+var ReadMore_1 = __webpack_require__("./ReadMore/index.tsx");
+exports.sourceSlide = {
+    color: '#8c8c8c',
+    content: function (props) { return (React.createElement(Grid_1.Grid, null,
+        React.createElement(Grid_1.Col, { width: 2 },
+            React.createElement(Grid_1.Row, { height: 2 },
+                React.createElement(TextBox_1.TextBox, { size: 1, subTitle: "- Robert Oppenheimer" },
+                    React.createElement("i", null, "The atomic bomb made the prospect of future war unendurable. It has led us up those last few steps to the mountain pass; and beyond there is a different country. "))),
+            React.createElement(Grid_1.Row, { height: 2 },
+                React.createElement(TextBox_1.TextBox, { size: 1, subTitle: "- Harry Truman" },
+                    React.createElement("i", null, "The atom bomb was no 'great decision.' It was merely another powerful weapon in the arsenal of righteousness. ")))),
+        React.createElement(Grid_1.Col, { width: 2 },
+            React.createElement(Grid_1.Row, { height: 2 },
+                React.createElement(TextBox_1.TextBox, { size: 1, subTitle: "- Albert Einstein" },
+                    React.createElement("i", null, "The release of atomic energy has not created a new problem. It has merely made more urgent the necessity of solving an existing one. "))),
+            React.createElement(Grid_1.Row, { height: 2 },
+                React.createElement(TextBox_1.TextBox, null,
+                    React.createElement(ReadMore_1.ReadMore, { onClick: props.onReadMore, text: "Sources" })))))); },
+    overlay: function () { return (React.createElement("div", null,
+        React.createElement("p", null, "\"Manhattan Project.\" The Manhattan Project (2010): n. pag. Energy.gov. United States Department of Energy, Jan. 2010. Web."),
+        React.createElement("p", null, "Einstein, Albert. \"Einstein Letter.\" Letter to F. D. Roosevelt. 2 Aug. 1939. MS. N.p."),
+        React.createElement("p", null, "\"Oppenheimer's Farewell Speech.\" Atomic Heritage Foundation. The Atomic Heritage Foundation, n.d. Web."),
+        React.createElement("p", null, "Shapiro, Jerome F. Atomic Bomb Cinema: The Apocalyptic Imagination on Film. New York: Routledge, 2002. "),
+        React.createElement("p", null, "Mackintosh, Paul St John., Maki Sugiyama, and Kenzaburo\u00CC Oe. Nip the Buds, Shoot the Kids. London: Picador, 1996. "),
+        React.createElement("p", null, " Nakazawa, Keiji. Barefoot Gen. San Francisco, CA: Last Gasp, 2016."),
+        React.createElement("p", null, " Mizuki, Shigeru. Onward Towards Our Noble Deaths. Barnes & Noble. Kodansha, n.d. Web. 02 June 2017."),
+        React.createElement("p", null, "Maruki, Iri and Toshi. Hiroshima Panels. 1946-1976. Mural. Maruki Gallery for the Hiroshima Panels, Hiki Hills."),
+        React.createElement("p", null, "Southard, Susan. Nagasaki: Life After Nuclear War. Penguin Books. New York. 2016"),
+        React.createElement("p", null, "A-bombed effects studied\u201D The Science News-letter. Vol. 49, No. 12 (Mar. 23, 1946). P.179-180 https://www.jstor.org/stable/pdf/3922593.pdf?refreqid=excelsior%3A1b9db7175b00c02b341409cb76e07d41 May 26, 2017"),
+        React.createElement("p", null, "Atomic Bomb Survivors. Unforgettable Fire. Japan Broadcasting Corporation. 1996"),
+        React.createElement("p", null, "Christy, Alan, and Alice Yang. \"Silences\" World War 2 Memoirs. University of California,\t\t Santa Cruz, Santa Cruz, CA. 5 May 2017. Lecture."),
+        React.createElement("p", null, "United States. Military. Air Force. Third Report of the Commanding General of the Army Air\t\t Forces to the Secretary of War. By Henry Harley Arnold. Baltimore, MD:\t"),
+        React.createElement("p", null, "Long, Doug. \"Military Views About Dropping the Atomic Bomb.\" Colorado.edu.\t\t"),
+        React.createElement("p", null, "University of Colorado, Boulder., 2010. Web. 05 June 2017."),
+        React.createElement("p", null, "Fussell, Paul. \"Thank God for the Atom Bomb.\" Canvas.ucsc.edu. Summit Books, 1988, 02\t\t Apr. 2017. Web. 03 June 2017."),
+        React.createElement("p", null, "Wilson, Ward. \"The Bomb Didn't Beat Japan, Stalin Did.\" Foreignpolicy.com. FP Magazine, \t\t30 May 2013. Web. 05 June 2017."),
+        React.createElement("p", null, "Christy, Alan, and Alice Yang. \"Bomb Surrender.\" World War 2 Memoirs. University of\t\t\t California, Santa Cruz, Santa Cruz, CA. 3 May 2017. Lecture."),
+        React.createElement("p", null, "Crane, Conrad C. \u201CEvolution of U.S. Strategic Bombing of Urban Areas.\u201D The Historian 50, no. 1(1987) 14-39. http://www.jstor.org/stable/24446944."),
+        React.createElement("p", null, "Palchikoff Drago, Kaleria, and Melissa Block. \"Seeing the Horror of Hiroshima.\" KQED Public Media (audio blog), August 5, 2005. Accessed June 4, 2017. http://www.npr.org/templates/story/story.php?storyId=4787714."),
+        React.createElement("p", null, "Palchikoff, Nikolay. \"The Nuclear August of 1945.\" The New York Times. August 05, 2001. Accessed June 1, 2017. http://www.nytimes.com/2001/08/06/opinion/the-nuclear-august-of-1945.html."),
+        React.createElement("p", null, "U.S. Government. \u201CThe United States Strategic Bombing Surveys (European War) (Pacific War.)\u201D Internet Archives, Accessed May 29, 2017. http://archive.org/details/unitedstatesstra00cent."),
+        React.createElement("p", null, "\"US Strategic Bombing Survey of Hiroshima Aftermath.\" Youtube. May 5, 2014. Accessed June 4, 2017. https://www.youtube.com/watch?v=L8Ku7tawAPk."))); }
+};
+
+
+ ;(function register() { /* react-hot-loader/webpack */ if (process.env.NODE_ENV !== 'production') { if (typeof __REACT_HOT_LOADER__ === 'undefined') { return; } if (typeof module.exports === 'function') { __REACT_HOT_LOADER__.register(module.exports, 'module.exports', "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/sources.tsx"); return; } for (var key in module.exports) { if (!Object.prototype.hasOwnProperty.call(module.exports, key)) { continue; } var namedExport = void 0; try { namedExport = module.exports[key]; } catch (err) { continue; } __REACT_HOT_LOADER__.register(namedExport, key, "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/sources.tsx"); } } })();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("../node_modules/node-libs-browser/node_modules/process/browser.js")))
+
+/***/ }),
+
+/***/ "./data/vanity.tsx":
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+Object.defineProperty(exports, "__esModule", { value: true });
+var React = __webpack_require__("../node_modules/react/react.js");
+var TextBox_1 = __webpack_require__("./TextBox/index.tsx");
+exports.vanitySlide = {
+    color: 'transparent',
+    content: function () { return (React.createElement("div", null,
+        React.createElement(TextBox_1.TextBox, { full: true, size: 4 }, "Thanks for viewing, in case you haven't noticed, use arrow keys, clicking or scroll to navigate, click on ReadMore to look at the full essays on the topic."),
+        React.createElement("div", { style: {
+                position: 'absolute',
+                top: '30px',
+                right: '30px'
+            } },
+            React.createElement("span", null, "Website by Sequoia Snow")))); }
+};
+
+
+ ;(function register() { /* react-hot-loader/webpack */ if (process.env.NODE_ENV !== 'production') { if (typeof __REACT_HOT_LOADER__ === 'undefined') { return; } if (typeof module.exports === 'function') { __REACT_HOT_LOADER__.register(module.exports, 'module.exports', "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/vanity.tsx"); return; } for (var key in module.exports) { if (!Object.prototype.hasOwnProperty.call(module.exports, key)) { continue; } var namedExport = void 0; try { namedExport = module.exports[key]; } catch (err) { continue; } __REACT_HOT_LOADER__.register(namedExport, key, "/Users/sequoiasnow/Documents/Sites/history-80y/src/data/vanity.tsx"); } } })();
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__("../node_modules/node-libs-browser/node_modules/process/browser.js")))
 
 /***/ }),
 

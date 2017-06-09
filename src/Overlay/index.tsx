@@ -9,6 +9,7 @@ export class Overlay extends React.Component<{ onClose: () => void }, {}> {
         <div className="overlay__content">
           {this.props.children}
         </div>
+        <div className="overlay__close" onClick={this.props.onClose} />
       </div>
     )
   }
